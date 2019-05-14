@@ -11,12 +11,17 @@
     <header class="header--main-page">
       <nav class="container container--70">
         <ul class="nav--actions">
-          <li><a href="/login.html" class="btn btn--small btn--without-border">Zaloguj</a></li>
-          <li><a href="registration.html" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+          <div th:switch="${#authentication}? ${#authorization.expression('isAuthenticated()')} : ${false}">
+                <span th:case="${false}"><li><a href="/login" class="btn btn--small btn--without-border">Zaloguj</a></li>
+            </span>
+            <span th:case="${true}"><li><a href="/logout" class="btn btn--small btn--without-border">Wyloguj</a></li>
+                </span>
+          </div>
+          <li><a href="registration" class="btn btn--small btn--highlighted">Załóż konto</a></li>
         </ul>
 
         <ul>
-          <li><a href="#" class="btn btn--without-border active">Start</a></li>
+          <li><a href="/home" class="btn btn--without-border active">Start</a></li>
           <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
           <li><a href="#" class="btn btn--without-border">O nas</a></li>
           <li><a href="#" class="btn btn--without-border">Fundacje i organizacje</a></li>

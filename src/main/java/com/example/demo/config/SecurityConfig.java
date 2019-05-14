@@ -49,14 +49,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.
                 authorizeRequests()
+                .antMatchers("/accountVerified").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/confirm-account/{token}").permitAll()
                 .antMatchers("/adminpanel").hasAuthority("ADMIN")
                 .antMatchers("/userpanel").hasAnyAuthority("ADMIN", "USER").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()
                 .loginPage("/login").failureUrl("/login?error=true")
-                .defaultSuccessUrl("//home")
+                .defaultSuccessUrl("/logged")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()

@@ -18,18 +18,18 @@ public class User {
     @Column(name = "user_id")
     private int id;
     @Column(name = "email")
-    @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+    @Email(message = "*Podaj prawidłowy email")
+    @NotEmpty(message = "*Podaj email")
     private String email;
     @Column(name = "password")
-    @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
+    @Length(min = 5, message = "*Hasło musi mieć przynajmniej 5 znaków")
+    @NotEmpty(message = "*Podaj hasło.")
     private String password;
     @Column(name = "name")
-    @NotEmpty(message = "*Please provide your name")
+    @NotEmpty(message = "*Podaj imię")
     private String name;
     @Column(name = "last_name")
-    @NotEmpty(message = "*Please provide your last name")
+    @NotEmpty(message = "*Podaj nazwisko.")
     private String lastName;
     @Column(name = "active")
     private int active;
