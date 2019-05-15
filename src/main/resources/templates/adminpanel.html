@@ -31,7 +31,9 @@
     <div class="slogan container container--90" style="background-image:none">
         <h1 th:text="'Witaj w panelu administratora' + ${userName} + ${test}"></h1>
 
-            <input type="submit" value="Wyloguj"/>
+        <ul class="nav--actions">
+            <li><a href="/addadmin" class="btn btn--small btn--without-border">Dodaj administratora</a></li>
+        </ul>
 
     </div>
 </header>

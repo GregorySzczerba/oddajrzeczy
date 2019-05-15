@@ -130,4 +130,40 @@ public class UserController {
         return modelAndView;
     }
 
+    @RequestMapping(value="/addadmin", method = RequestMethod.GET)
+    public ModelAndView createAdmin(){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = new User();
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("addadmin");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addadmin", method = RequestMethod.POST)
+    public ModelAndView createNewAdmin(@Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
+        User userExists = userService.findUserByEmail(user.getEmail());
+        if (userExists != null) {
+            bindingResult
+                    .rejectValue("email", "error.user",
+                            "Taki email już istnieje w bazie.");
+        }
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("addadmin");
+        } else {
+            userService.saveAdmin(user);
+
+            try {
+                notificationService.sendNotification(user);
+            } catch (MailException e) {
+                logger.info("Error while sending email " + e.getMessage());
+            }
+            modelAndView.addObject("successMessage", "Użytkownik został pomyślnie zarejestrowany");
+            modelAndView.addObject("user", new User());
+            modelAndView.setViewName("addadmin");
+
+        }
+        return modelAndView;
+    }
 }
+
