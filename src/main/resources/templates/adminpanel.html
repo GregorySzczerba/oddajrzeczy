@@ -34,6 +34,14 @@
         <ul class="nav--actions">
             <li><a href="/addadmin" class="btn btn--small btn--without-border">Dodaj administratora</a></li>
         </ul>
+        <table border="1">
+            <tr th:each="person: ${admins}">
+                <td th:text="${person.name}"/><td>Edytuj</td>
+                <td th:text="${person.lastName}"/>
+                <td th:text="${person.email}"/>
+            </tr>
+
+        </table>
 
     </div>
 </header>
