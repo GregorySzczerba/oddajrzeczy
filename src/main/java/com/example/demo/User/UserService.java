@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -51,4 +50,9 @@ public class UserService {
         List<User> admins = userRepository.findAllUsersByIdIsNotAndRolesId(id, role_id);
         return admins;
     }
+
+    public void deleteUser(int id){
+        userRepository.deleteById(id);
+    }
+
 }

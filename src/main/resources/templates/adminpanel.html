@@ -36,16 +36,15 @@
         </ul>
         <table border="1">
             <tr th:each="person: ${admins}">
-                <td th:text="${person.name}"/><td>Edytuj</td>
+                <td th:text="${person.name}"/>
                 <td th:text="${person.lastName}"/>
                 <td th:text="${person.email}"/>
+                <td><a th:href="@{'/edituser/' + ${person.id}}">Edytuj</a></td>
+                <td><a th:href="@{'/deleteuser/' + ${person.id}}">Skasuj</a></td>
             </tr>
-
         </table>
-
     </div>
 </header>
-
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">

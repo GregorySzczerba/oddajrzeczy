@@ -1,24 +1,32 @@
 package com.example.demo.User;
 
+import com.example.demo.role.Role;
+import com.example.demo.role.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
+@Transactional
 @Controller
 public class UserController {
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private UserService userService;
@@ -70,9 +78,6 @@ public class UserController {
         modelAndView.setViewName("adminpanel");
         return modelAndView;
     }
-
-
-
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
     public ModelAndView registration(){
@@ -169,5 +174,13 @@ public class UserController {
         }
         return modelAndView;
     }
+
+    @GetMapping("/deleteuser/{id}")
+    public String delete(@PathVariable int id) {
+        User user = userRepository.findById(id);
+        userRepository.delete(user);
+        return "adminpanel";
+    }
+
 }
 
