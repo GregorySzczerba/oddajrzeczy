@@ -179,7 +179,7 @@ public class UserController {
     public String delete(@PathVariable int id) {
         User user = userRepository.findById(id);
         userRepository.delete(user);
-        return "adminpanel";
+        return "redirect:/adminpanel";
     }
 
 }
