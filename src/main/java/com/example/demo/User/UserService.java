@@ -47,7 +47,7 @@ public class UserService {
     }
 
     public List<User> selectAdmins(int id, int role_id) {
-        List<User> admins = userRepository.findTop5UsersByIdIsNotAndRolesIdOrderById(id, role_id);
+        List<User> admins = userRepository.findTop5UsersByIdIsNotAndRolesIdOrderByIdDesc(id, role_id);
         return admins;
     }
 

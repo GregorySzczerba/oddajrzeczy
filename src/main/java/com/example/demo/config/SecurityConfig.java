@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/confirm-account/{token}").permitAll()
                 .antMatchers("/adminpanel").hasAuthority("ADMIN")
                 .antMatchers("/deleteuser/*").hasAuthority("ADMIN")
-                .antMatchers("/edituser/*").hasAuthority("ADMIN")
+                .antMatchers("/edituser").hasAuthority("ADMIN")
                 .antMatchers("/addadmin").hasAuthority("ADMIN")
                 .antMatchers("/userpanel").hasAnyAuthority("ADMIN", "USER").anyRequest()
                 .authenticated().and().csrf().disable().formLogin()

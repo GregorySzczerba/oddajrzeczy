@@ -5,19 +5,22 @@ import com.example.demo.role.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.MailException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
 
@@ -65,13 +68,13 @@ public class UserController {
     }
 
     @RequestMapping(value="/adminpanel", method = RequestMethod.GET)
-    public ModelAndView adminpanel(){
+    public ModelAndView adminpanel(@RequestParam(defaultValue = "0") int page){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         List<User> admins = userService.selectAdmins(user.getId(), 1);
-        System.out.println(admins);
-        modelAndView.addObject("admins", admins);
+
+        modelAndView.addObject("admins", userRepository.findAll(new PageRequest(page, 5)));
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.addObject("test", auth.getAuthorities());
@@ -179,6 +182,22 @@ public class UserController {
     public String delete(@PathVariable int id) {
         User user = userRepository.findById(id);
         userRepository.delete(user);
+        return "redirect:/adminpanel";
+    }
+
+    @RequestMapping(value="/edituser/{id}", method = RequestMethod.GET)
+    public ModelAndView editUser(@PathVariable int id){
+        ModelAndView modelAndView = new ModelAndView();
+        User user = userRepository.findById(id);
+        modelAndView.addObject("user", user);
+        modelAndView.setViewName("addadmin");
+        return modelAndView;
+    }
+
+    @PostMapping("/edituser/{id}")
+    public String edituser(User user, BindingResult bindingResult) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        userRepository.save(user);
         return "redirect:/adminpanel";
     }
 

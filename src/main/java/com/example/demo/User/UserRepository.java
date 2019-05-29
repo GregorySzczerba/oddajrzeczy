@@ -12,9 +12,10 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
-    List<User> findTop5UsersByIdIsNotAndRolesIdOrderById(int id, int role_id);
+    List<User> findTop5UsersByIdIsNotAndRolesIdOrderByIdDesc(int id, int role_id);
     User deleteById(int id);
     User findById(int id);
+
 
 
 }
