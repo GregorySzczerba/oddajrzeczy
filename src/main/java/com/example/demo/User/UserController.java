@@ -1,28 +1,26 @@
 package com.example.demo.User;
 
-import com.example.demo.role.Role;
 import com.example.demo.role.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.MailException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Transactional
 @Controller
@@ -55,7 +53,6 @@ public class UserController {
         return "redirect:userpanel";
     }
 
-
     @RequestMapping(value = "/userpanel", method = RequestMethod.GET)
     public ModelAndView userpanel() {
         ModelAndView modelAndView = new ModelAndView();
@@ -68,13 +65,15 @@ public class UserController {
     }
 
     @RequestMapping(value="/adminpanel", method = RequestMethod.GET)
-    public ModelAndView adminpanel(@RequestParam(defaultValue = "0") int page){
+    public ModelAndView adminpanel(){
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        List<User> admins = userService.selectAdmins(user.getId(), 1);
+        Pageable pageable = new PageRequest(0, 5);
 
-        modelAndView.addObject("admins", userRepository.findAll(new PageRequest(page, 5)));
+        List<User> admins = userService.selectAdmins(user.getId(), 1, pageable);
+
+        modelAndView.addObject("admins", admins );
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.addObject("test", auth.getAuthorities());
@@ -172,7 +171,7 @@ public class UserController {
             }
             modelAndView.addObject("successMessage", "Użytkownik został pomyślnie zarejestrowany");
             modelAndView.addObject("user", new User());
-            modelAndView.setViewName("addadmin");
+            modelAndView.setViewName("redirect:adminpanel");
 
         }
         return modelAndView;
@@ -181,20 +180,23 @@ public class UserController {
     @GetMapping("/deleteuser/{id}")
     public String delete(@PathVariable int id) {
         User user = userRepository.findById(id);
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByUserId(id);
+        confirmationTokenRepository.delete(confirmationToken);
         userRepository.delete(user);
         return "redirect:/adminpanel";
     }
 
-    @RequestMapping(value="/edituser/{id}", method = RequestMethod.GET)
+    @GetMapping("/edituser/{id}")
     public ModelAndView editUser(@PathVariable int id){
         ModelAndView modelAndView = new ModelAndView();
         User user = userRepository.findById(id);
+
         modelAndView.addObject("user", user);
-        modelAndView.setViewName("addadmin");
+        modelAndView.setViewName("edituser");
         return modelAndView;
     }
 
-    @PostMapping("/edituser/{id}")
+    @PostMapping("/edituser")
     public String edituser(User user, BindingResult bindingResult) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);

@@ -3,6 +3,7 @@ package com.example.demo.User;
 import com.example.demo.role.Role;
 import com.example.demo.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,8 +47,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> selectAdmins(int id, int role_id) {
-        List<User> admins = userRepository.findTop5UsersByIdIsNotAndRolesIdOrderByIdDesc(id, role_id);
+    public List<User> selectAdmins(int id, int role_id, Pageable pageable) {
+        List<User> admins = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
         return admins;
     }
 
