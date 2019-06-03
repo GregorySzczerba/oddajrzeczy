@@ -52,6 +52,11 @@ public class UserService {
         return admins;
     }
 
+    public List<User> selectUsers(int id, int role_id, Pageable pageable) {
+        List<User> users = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
+        return users;
+    }
+
     public void deleteUser(int id){
         userRepository.deleteById(id);
     }

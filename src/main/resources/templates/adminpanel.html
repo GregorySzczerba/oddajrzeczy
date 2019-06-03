@@ -88,7 +88,7 @@
                 <a class="dropdown-item" href="#">Settings</a>
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
-            <a href="/logout" data-toggle="modal" data-target="#logoutModal">Wyloguj</a>
+                <a href="/logout" data-toggle="modal" data-target="#logoutModal">Wyloguj</a>
             </div>
         </li>
     </ul>
@@ -168,7 +168,7 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a href="addadmin">Dodaj administratora</a> </div>
+                            <div class="mr-5"><a href="addadmin">Dodaj administratora</a></div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">View Details</span>
@@ -207,7 +207,7 @@
                             <span class="float-right">
                   <i class="fas fa-angle-right"></i>
                 </span>
-                        </a>                    </div>
+                        </a></div>
                 </div>
             </div>
             <!-- DataTables Example -->
@@ -233,7 +233,8 @@
                                 <td th:text="${person.name}"/>
                                 <td th:text="${person.lastName}"/>
                                 <td th:text="${person.email}"/>
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${person.id} + '\');'" class="btn btn-danger">Skasuj</a></td>
+                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${person.id} + '\');'"
+                                       class="btn btn-danger">Skasuj</a></td>
                                 <td><a th:href="@{'/edituser/' + ${person.id}}" class="btn btn-warning">Edytuj</a></td>
 
                             </tr>
@@ -245,35 +246,69 @@
             </div>
 
         </div>
-            <input type="text" th:text="${pageNumbers}"/>
-            <!-- Area Chart Example-->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-chart-area"></i>
-                    Area Chart Example
-                </div>
-                <div class="card-body">
-                    <canvas id="myAreaChart" width="100%" height="30"></canvas>
-                </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Lista użytkowników
             </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>Imię</th>
+                            <th>Nazwisko</th>
+                            <th>email</th>
+                            <th>Usuwanie</th>
+                            <th>Edycja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.name}"/>
+                            <td th:text="${user.lastName}"/>
+                            <td th:text="${user.email}"/>
+                            <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${user.id} + '\');'"
+                                   class="btn btn-danger">Skasuj</a></td>
+                            <td><a th:href="@{'/edituser/' + ${user.id}}" class="btn btn-warning">Edytuj</a></td>
 
-
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </footer>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
 
     </div>
-    <!-- /.content-wrapper -->
+    <!-- Area Chart Example-->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-chart-area"></i>
+            Area Chart Example
+        </div>
+        <div class="card-body">
+            <canvas id="myAreaChart" width="100%" height="30"></canvas>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+
+    <!-- /.container-fluid -->
+
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
 
 </div>
+<!-- /.content-wrapper -->
+
+
 <!-- /#wrapper -->
 
 <!-- Scroll to Top Button-->

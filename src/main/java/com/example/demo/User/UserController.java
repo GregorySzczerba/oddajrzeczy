@@ -69,14 +69,16 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        Pageable pageable = new PageRequest(0, 5);
+        Pageable pageableAdmins = new PageRequest(0, 5);
+        Pageable pageableUsers = new PageRequest(0, 5);
 
-        List<User> admins = userService.selectAdmins(user.getId(), 1, pageable);
 
-        modelAndView.addObject("admins", admins );
+        List<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
+        List<User> users = userService.selectUsers(user.getId(), 3, pageableUsers );
+
+        modelAndView.addObject("admins", admins);
+        modelAndView.addObject("users", users);
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-        modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-        modelAndView.addObject("test", auth.getAuthorities());
         modelAndView.setViewName("adminpanel");
         return modelAndView;
     }
