@@ -1,7 +1,7 @@
-package com.example.demo.User;
+package com.example.demo.ConfirmationToken;
 
+import com.example.demo.ConfirmationToken.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
 public interface ConfirmationTokenRepository extends JpaRepository<ConfirmationToken, Long> {
     ConfirmationToken findByConfirmationToken(String confirmationToken);

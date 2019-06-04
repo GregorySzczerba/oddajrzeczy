@@ -1,4 +1,6 @@
-package com.example.demo.User;
+package com.example.demo.ConfirmationToken;
+
+import com.example.demo.User.User;
 
 import javax.persistence.*;
 import java.util.Date;

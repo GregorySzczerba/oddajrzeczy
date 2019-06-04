@@ -1,5 +1,7 @@
 package com.example.demo.User;
 
+import com.example.demo.ConfirmationToken.ConfirmationToken;
+import com.example.demo.ConfirmationToken.ConfirmationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
