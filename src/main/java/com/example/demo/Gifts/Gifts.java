@@ -14,7 +14,9 @@ public class Gifts {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "gift_id")
     private int id;
-    private String typeOfGift;
+    @ElementCollection
+    private List<String> typeOfGift;
+    private String typeOfGiftsToString;
     private int quantityOfGifts;
     private String street;
     private String city;
@@ -26,6 +28,14 @@ public class Gifts {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public String getTypeOfGiftsToString() {
+        return typeOfGiftsToString;
+    }
+
+    public void setTypeOfGiftsToString(String typeOfGiftsToString) {
+        this.typeOfGiftsToString = typeOfGiftsToString;
+    }
 
     public User getUser() {
         return user;
@@ -43,11 +53,11 @@ public class Gifts {
         this.id = id;
     }
 
-    public String getTypeOfGift() {
+    public List<String> getTypeOfGift() {
         return typeOfGift;
     }
 
-    public void setTypeOfGift(String typeOfGift) {
+    public void setTypeOfGift(List<String> typeOfGift) {
         this.typeOfGift = typeOfGift;
     }
 

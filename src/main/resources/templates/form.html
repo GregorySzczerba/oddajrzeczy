@@ -99,51 +99,29 @@
           <div data-step="1" class="active">
             <h3>Zaznacz co chcesz oddać:</h3>
 
-            <div class="form-group form-group--checkbox">
+
               <label>
-               <!-- <input type="checkbox" th:field="*{typeOfGift}" value="clothes-to-use"/>-->
+                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="clothes-to-use"/>
                 <span class="checkbox"></span>
                 <span class="description"
                   >ubrania, które nadają się do ponownego użycia</span>
               </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
               <label>
-                <input
-                  type="checkbox"
-                  name="products[]"
-                  value="clothes-useless"
-                />
-                <span class="checkbox"></span>
-                <span class="description">ubrania, do wyrzucenia</span>
+                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="clothes-useless"/>
+                  <span class="description">ubrania, do wyrzucenia</span>
               </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
               <label>
-                <input type="checkbox" name="products[]" value="toys" />
-                <span class="checkbox"></span>
+                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="toys" />
                 <span class="description">zabawki</span>
               </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
               <label>
-                <input type="checkbox" name="products[]" value="books" />
-                <span class="checkbox"></span>
+                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="books" />
                 <span class="description">książki</span>
               </label>
-            </div>
-
-            <div class="form-group form-group--checkbox">
               <label>
-                <input type="checkbox" name="products[]" value="other" />
-                <span class="checkbox"></span>
+                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="other" />
                 <span class="description">inne</span>
               </label>
-            </div>
-
             <input type="submit" value="Next"
                    name="_target1" /> <input type="submit" value="Cancel"
                                              name="_cancel" />

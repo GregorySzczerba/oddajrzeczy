@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/accountVerified").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/form").permitAll()
+                .antMatchers("/addgifts").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/confirm-account/{token}").permitAll()
