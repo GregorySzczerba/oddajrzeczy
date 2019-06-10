@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <head>
 
-    <meta charset="utf-8"/>
+    <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Panel administratora</title>
+    <title>Dodaj fundacje</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/css/vendor/datatables/dataTables.bootstrap4.css}"/>
@@ -107,7 +107,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Instytucje</span>
+                <span>Pages</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">Login Screens:</h6>
@@ -139,9 +139,9 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
+                    <a href="adminpanel">Panel</a>
                 </li>
-                <li class="breadcrumb-item active">Overview</li>
+                <li class="breadcrumb-item active">edituser (Edytuj administratora)</li>
             </ol>
 
             <!-- Icon Cards-->
@@ -152,7 +152,7 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-comments"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addorganisation">Dodaj fundację</a></div>
+                            <div class="mr-5">26 New Messages!</div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">View Details</span>
@@ -168,7 +168,7 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addadmin">Dodaj administratora</a></div>
+                            <div class="mr-5"><a href="addadmin">Dodaj administratora</a></div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">View Details</span>
@@ -184,7 +184,7 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addcategory">Dodaj kategorię</a></div>
+                            <div class="mr-5">123 New Orders!</div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">View Details</span>
@@ -207,154 +207,68 @@
                             <span class="float-right">
                   <i class="fas fa-angle-right"></i>
                 </span>
-                        </a></div>
+                        </a>                    </div>
                 </div>
             </div>
-            <!-- DataTables Example -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    Lista administratorów
+            <form autocomplete="off" action="#" th:action="@{/addcategory}"
+                  th:object="${category}" method="post" class="form-horizontal"
+                  role="form">
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                               class="validation-message"></label>
+                        <input type="text" th:field="*{name}" placeholder="Nazwa"
+                               class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-primary btn-block">Dodaj kategorię fundacji</button>
+                        </div>
+                    </div>
+                    <span th:utext="${successMessage}"></span>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>email</th>
-                                <th>Usuwanie</th>
-                                <th>Edycja</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="person: ${admins}">
-                                <td th:text="${person.name}"/>
-                                <td th:text="${person.lastName}"/>
-                                <td th:text="${person.email}"/>
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${person.id} + '\');'"
-                                       class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/edituser/' + ${person.id}}" class="btn btn-warning">Edytuj</a></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
+            </form>
+            <!-- /.container-fluid -->
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Your Website 2019</span>
                     </div>
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-            </div>
+            </footer>
 
         </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Lista użytkowników
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>email</th>
-                            <th>Usuwanie</th>
-                            <th>Edycja</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="user: ${users}">
-                            <td th:text="${user.name}"/>
-                            <td th:text="${user.lastName}"/>
-                            <td th:text="${user.email}"/>
-                            <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${user.id} + '\');'"
-                                   class="btn btn-danger">Skasuj</a></td>
-                            <td><a th:href="@{'/edituser/' + ${user.id}}" class="btn btn-warning">Edytuj</a></td>
+        <!-- /.content-wrapper -->
 
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    Lista fundacji
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableOrganisations" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Nazwa</th>
-                                <th>Miasto</th>
-                                <th>Adres</th>
-                                <th>Kategoria</th>
-                                <th>Edycja</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="organisation: ${organisations}">
-                                <td th:text="${organisation.name}"/>
-                                <td th:text="${organisation.city}"/>
-                                <td th:text="${organisation.street}"/>
-                                <!--<td th:text="${organisation.category.name}"/>-->
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${organisation.id} + '\');'"
-                                       class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/editorganisation/' + ${organisation.id}}" class="btn btn-warning">Edytuj</a></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
-        </div>
     </div>
-    <!-- /.container-fluid -->
+    <!-- /#wrapper -->
 
-    <!-- Sticky Footer -->
-    <footer class="sticky-footer">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright © Your Website 2019</span>
-            </div>
-        </div>
-    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-</div>
-<!-- /.content-wrapper -->
-
-
-<!-- /#wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/css/vendor/jquery/jquery.min.js}"></script>
 

@@ -2,7 +2,9 @@ package com.example.demo.Gifts;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,20 +28,36 @@ public class GiftController {
     }
 
     @PostMapping("/addgifts")
-    public ModelAndView addGiftsPost(Gifts gifts) {
-        ModelAndView modelAndView = new ModelAndView();
-        /*List<String> giftList = gifts.getTypeOfGift();
-        giftList.forEach(System.out::println);
-        gifts.setTypeOfGift(giftList);*/
-        StringBuilder sb = new StringBuilder();
-        for (String gift : gifts.getTypeOfGift()) {
-            sb.append(gift);
-        };
-        gifts.setTypeOfGiftsToString(sb.toString());
-       /* gifts.getTypeOfGift().forEach(System.out::println);*/
+    public String addGiftsPost(Gifts gifts, Model model) {
         giftsRepository.save(gifts);
-        modelAndView.setViewName("/index");
-        return modelAndView;
+        model.addAttribute("gifts", gifts);
+        return"redirect:/form2/" + gifts.getId();
+    }
 
+    @GetMapping("/form2/{id}")
+    public ModelAndView addgifts2(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Gifts gifts = giftsRepository.findOne(id);
+        modelAndView.addObject("gifts", gifts);
+        modelAndView.setViewName("form2");
+        return modelAndView;
+    }
+
+    @PostMapping("/addgifts2")
+    public String addGiftsPost2(Gifts gifts, Model model) {
+        giftsRepository.save(gifts);
+        model.addAttribute("gifts", gifts);
+        return"redirect:/form3/" + gifts.getId();
+
+
+    }
+
+    @GetMapping("/form3/{id}")
+    public ModelAndView addgifts3() {
+        ModelAndView modelAndView = new ModelAndView();
+        Gifts gifts = new Gifts();
+        modelAndView.addObject("gifts", gifts);
+        modelAndView.setViewName("form3");
+        return modelAndView;
     }
 }

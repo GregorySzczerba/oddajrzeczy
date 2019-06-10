@@ -16,7 +16,6 @@ public class Gifts {
     private int id;
     @ElementCollection
     private List<String> typeOfGift;
-    private String typeOfGiftsToString;
     private int quantityOfGifts;
     private String street;
     private String city;
@@ -29,12 +28,12 @@ public class Gifts {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public String getTypeOfGiftsToString() {
-        return typeOfGiftsToString;
+    public List<String> getTypeOfGift() {
+        return typeOfGift;
     }
 
-    public void setTypeOfGiftsToString(String typeOfGiftsToString) {
-        this.typeOfGiftsToString = typeOfGiftsToString;
+    public void setTypeOfGift(List<String> typeOfGift) {
+        this.typeOfGift = typeOfGift;
     }
 
     public User getUser() {
@@ -51,14 +50,6 @@ public class Gifts {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public List<String> getTypeOfGift() {
-        return typeOfGift;
-    }
-
-    public void setTypeOfGift(List<String> typeOfGift) {
-        this.typeOfGift = typeOfGift;
     }
 
     public int getQuantityOfGifts() {

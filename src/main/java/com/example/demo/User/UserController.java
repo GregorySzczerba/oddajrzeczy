@@ -2,6 +2,8 @@ package com.example.demo.User;
 
 import com.example.demo.ConfirmationToken.ConfirmationToken;
 import com.example.demo.ConfirmationToken.ConfirmationTokenRepository;
+import com.example.demo.Organisation.Organisation;
+import com.example.demo.Organisation.OrganisationService;
 import com.example.demo.role.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,9 @@ public class UserController {
 
     @Autowired
     private NotificationService notificationService;
+
+    @Autowired
+    private OrganisationService organisationService;
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
@@ -74,9 +79,11 @@ public class UserController {
 
         List<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
         List<User> users = userService.selectUsers(user.getId(), 3, pageableUsers );
+        List<Organisation> organisations = organisationService.selectOrganisations();
 
         modelAndView.addObject("admins", admins);
         modelAndView.addObject("users", users);
+        modelAndView.addObject("organisations", organisations);
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.setViewName("adminpanel");
         return modelAndView;
@@ -191,7 +198,6 @@ public class UserController {
     public ModelAndView editUser(@PathVariable int id){
         ModelAndView modelAndView = new ModelAndView();
         User user = userRepository.findById(id);
-
         modelAndView.addObject("user", user);
         modelAndView.setViewName("edituser");
         return modelAndView;
