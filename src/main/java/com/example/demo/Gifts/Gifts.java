@@ -1,5 +1,6 @@
 package com.example.demo.Gifts;
 
+import com.example.demo.Organisation.Organisation;
 import com.example.demo.User.User;
 
 import javax.persistence.*;
@@ -27,6 +28,18 @@ public class Gifts {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "organisation_id")
+    private Organisation organisation;
+
+    public Organisation getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
+    }
 
     public List<String> getTypeOfGift() {
         return typeOfGift;

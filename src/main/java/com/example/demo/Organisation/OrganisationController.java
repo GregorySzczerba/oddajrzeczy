@@ -5,9 +5,11 @@ import com.example.demo.Category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -29,7 +31,7 @@ public class OrganisationController {
     }
 
     @PostMapping("/addorganisation")
-    public String addorganisation (Organisation organisation) {
+    public String addorganisation (@Valid Organisation organisation, BindingResult bindingResult) {
        organisationRepository.save(organisation);
        return "redirect:adminpanel";
 
