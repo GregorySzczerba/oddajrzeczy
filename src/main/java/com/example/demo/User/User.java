@@ -1,20 +1,16 @@
 package com.example.demo.User;
 
-import com.example.demo.Gifts.Gifts;
 import com.example.demo.role.Role;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

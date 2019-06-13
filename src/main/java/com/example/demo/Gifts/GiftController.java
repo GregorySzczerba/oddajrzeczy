@@ -73,4 +73,15 @@ public class GiftController {
         model.addAttribute("gifts", gifts);
         return"redirect:/form4/" + gifts.getId();
     }
+
+    @GetMapping("/form4/{id}")
+    public ModelAndView addgifts4(@PathVariable int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Gifts gifts = giftsRepository.findOne(id);
+        List<Organisation> organisations = organisationRepository.findAll();
+        modelAndView.addObject("gifts", gifts);
+        modelAndView.addObject("organisations", organisations);
+        modelAndView.setViewName("form4");
+        return modelAndView;
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.demo.Organisation;
 
 import com.example.demo.Category.Category;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 
@@ -14,17 +13,14 @@ public class Organisation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @NotBlank
     private String street;
 
-    @NotBlank
     private String city;
 
-    @NotBlank
     private String name;
 
     public Long getId() {

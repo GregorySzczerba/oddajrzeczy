@@ -25,11 +25,12 @@ public class Gifts {
     private Date date;
     private LocalDateTime time;
     private String remarks;
-    @ManyToOne
+
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
 

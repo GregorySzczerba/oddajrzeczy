@@ -9,9 +9,7 @@ import javax.persistence.*;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-
         private String name;
-
 
         public Long getId() {
             return id;
@@ -27,6 +25,14 @@ import javax.persistence.*;
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return "Category{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    '}';
         }
     }
 
