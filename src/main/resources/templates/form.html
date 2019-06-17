@@ -4,168 +4,268 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-
     <link rel="stylesheet" th:href="@{/css/style.css}" />
+      <title>Formularz</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      <!--<script src="<c:url value="/resources/js/app.js"/>" type="text/javascript"></script>-->
+      </head>
+      <body>
+      <header class="header--form-page">
+              <nav class="container container--70">
 
-  </head>
-  <body>
-    <header class="header--form-page">
-      <nav class="container container--70">
-        <ul class="nav--actions">
-          <li class="logged-user">
-            Witaj Agata
-            <ul class="dropdown">
+              <ul class="nav--actions">
+              <li class="logged-user">
+              <ul class="dropdown">
               <li><a href="#">Profil</a></li>
-              <li><a href="#">Ustawienia</a></li>
-              <li><a href="#">Moje zbiórki</a></li>
-              <li><a href="#">Wyloguj</a></li>
-            </ul>
-          </li>
-        </ul>
+      <li><a href="#">Ustawienia</a></li>
+      <li><a href="#">Moje zbiórki</a></li>
+      <!--<li><a href="/logout"/>">Wyloguj</a></li>-->
+      </ul>
+      </li>
+      </ul>
 
-        <ul>
-          <li><a href="#" class="btn btn--without-border active">Start</a></li>
-          <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
-          <li><a href="#" class="btn btn--without-border">O nas</a></li>
-          <li>
-            <a href="#" class="btn btn--without-border"
-              >Fundacje i organizacje</a
-            >
-          </li>
-          <li><a href="#" class="btn btn--without-border">Kontakt</a></li>
-        </ul>
+      <ul>
+      <!--<li><a href="<c:url value="../.."/>" class="btn btn&#45;&#45;without-border active">Start</a></li>-->
+      <li><a href="#" class="btn btn--without-border">O co chodzi?</a></li>
+      <li><a href="#" class="btn btn--without-border">O nas</a></li>
+      <li><a href="#" class="btn btn--without-border">Fundacje i organizacje</a></li>
+      <li><a href="#" class="btn btn--without-border">Kontakt</a></li>
+      </ul>
       </nav>
 
       <div class="slogan container container--90">
-        <div class="slogan--item">
-          <h1>
-            Oddaj rzeczy, których już nie chcesz<br />
-            <span class="uppercase">potrzebującym</span>
-          </h1>
+              <div class="slogan--item">
+              <h1>
+              Oddaj rzeczy, których już nie chcesz<br/>
+      <span class="uppercase">potrzebującym</span>
+              </h1>
 
-          <div class="slogan--steps">
-            <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
-            <ul class="slogan--steps-boxes">
+              <div class="slogan--steps">
+              <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
+      <ul class="slogan--steps-boxes">
               <li>
-                <div><em>1</em><span>Wybierz rzeczy</span></div>
-              </li>
-              <li>
-                <div><em>2</em><span>Spakuj je w worki</span></div>
-              </li>
-              <li>
-                <div><em>3</em><span>Wybierz fundację</span></div>
-              </li>
-              <li>
-                <div><em>4</em><span>Zamów kuriera</span></div>
-              </li>
-            </ul>
-          </div>
-        </div>
+              <div><em>1</em><span>Wybierz rzeczy</span></div>
+      </li>
+      <li>
+      <div><em>2</em><span>Spakuj je w worki</span></div>
+      </li>
+      <li>
+      <div><em>3</em><span>Wybierz fundację</span></div>
+      </li>
+      <li>
+      <div><em>4</em><span>Zamów kuriera</span></div>
+      </li>
+      </ul>
       </div>
-    </header>
+      </div>
+      </div>
+      </header>
 
-    <section class="form--steps">
-      <div class="form--steps-instructions">
-        <div class="form--steps-container">
-          <h3>Ważne!</h3>
-          <p data-step="1" class="active">
-            Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
-            wiedzieć komu najlepiej je przekazać.
-          </p>
-          <p data-step="2">
-            Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
-            wiedzieć komu najlepiej je przekazać.
-          </p>
-          <p data-step="3">
-            Jeśli wiesz komu chcesz pomóc, możesz wpisać nazwę tej organizacji w
-            wyszukiwarce. Możesz też filtrować organizacje po ich lokalizacji
-            bądź celu ich pomocy.
-          </p>
-          <p data-step="4">
-            Na podstawie Twoich kryteriów oraz rzeczy, które masz do oddania
-            wybraliśmy organizacje, którym możesz pomóc. Wybierz jedną, do
-            której trafi Twoja przesyłka.
-          </p>
-          <p data-step="5">Podaj adres oraz termin odbioru rzeczy.</p>
-        </div>
+      <section class="form--steps">
+              <div class="form--steps-instructions">
+              <div class="form--steps-container">
+              <h3>Ważne!</h3>
+      <p data-step="1" class="active">
+              Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
+      wiedzieć komu najlepiej je przekazać.
+      </p>
+      <p data-step="2">
+              Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
+      wiedzieć komu najlepiej je przekazać.
+      </p>
+      <p data-step="3">
+              Jeśli wiesz komu chcesz pomóc, możesz wpisać nazwę tej organizacji w
+      wyszukiwarce. Możesz też filtrować organizacje po ich lokalizacji
+      bądź celu ich pomocy.
+      </p>
+      <p data-step="4">
+              Na podstawie Twoich kryteriów oraz rzeczy, które masz do oddania
+              wybraliśmy organizacje, którym możesz pomóc. Wybierz jedną, do
+        której trafi Twoja przesyłka.
+      </p>
+      <p data-step="5">Podaj adres oraz termin odbioru rzeczy.</p>
+      </div>
       </div>
 
       <div class="form--steps-container">
-        <div class="form--steps-counter">Krok <span>1</span>/5</div>
+              <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
         <form th:action="@{/addgifts}" th:object="${gifts}" method="post">
-          <!-- STEP 1: class .active is switching steps -->
-          <div data-step="1" class="active">
-            <h3>Zaznacz co chcesz oddać:</h3>
+              <!-- STEP 1: class .active is switching steps -->
+              <div data-step="1" class="active">
+              <h3>Zaznacz co chcesz oddać:</h3>
+                  <div class="form-group form-group--checkbox">
+                      <th:block th:each="gift : ${listTypeOfGifts}">
+                      <label>
+                          <input type="checkbox" th:value="${gift.id}" />
+                          <span class="checkbox"></span>
+                          <span class="description"><input type="text"  th:text="${gift.name}"/></span>
+                      </label>
 
 
-              <label>
-                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="clothes-to-use"/>
-                <span class="checkbox"></span>
-                <span class="description"
-                  >ubrania, które nadają się do ponownego użycia</span>
-              </label>
-              <label>
-                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="clothes-useless"/>
-                  <span class="description">ubrania, do wyrzucenia</span>
-              </label>
-              <label>
-                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="toys" />
-                <span class="description">zabawki</span>
-              </label>
-              <label>
-                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="books" />
-                <span class="description">książki</span>
-              </label>
-              <label>
-                <input type="checkbox" th:field="*{typeOfGift}" name="products" value="other" />
-                <span class="description">inne</span>
-              </label>
-            <input type="submit" value="Next"
-                   name="_target1" /> <input type="submit" value="Cancel"
-                                              name="_cancel" />
-          </div>
+                  </th:block>
+              </div>
+              </div>
         </form>
+
+
+              <div class="form-group form-group--buttons">
+              <button id="firstStepButton" type="button" class="btn next-step">Dalej</button>
+              </div>
+              </div>
+
+
+
+      </section>
+
+
+             <!-- &lt;!&ndash; STEP 2 &ndash;&gt;
+              <div data-step="2">
+              <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
+
+      <div class="form-group form-group&#45;&#45;inline">
+              <label> Liczba 60l worków:
+              <form:input type="number" path="bagsNumber" step="1" min="1"/>
+              </label>
+              </div>
+
+              <div class="form-group form-group&#45;&#45;buttons">
+              <button type="button" class="btn prev-step">Wstecz</button>
+              <button type="button" class="btn next-step">Dalej</button>
+              </div>
+              </div>
+
+              &lt;!&ndash; STEP 3&ndash;&gt;
+              <div data-step="3">
+              <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+      <c:forEach items="${foundations}" var="var">
+      <div class="form-group form-group&#45;&#45;checkbox">
+              <label>
+              <input type="radio" name="foundationId" value="${var.id}"/>
+              <span hidden>"${var.name}"</span>
+      <span class="checkbox radio"></span>
+              <span class="description">
+              <div class="title">Fundacja: "${var.name}"</div>
+      <div class="subtitle">Cel i misja: ${var.description}</div>
+      </span>
+      </label>
       </div>
-    </section>
+      </c:forEach>
 
-    <footer>
-      <div class="contact">
-        <h2>Skontaktuj się z nami</h2>
-        <h3>Formularz kontaktowy</h3>
-        <form class="form--contact">
-          <div class="form-group form-group--50">
-            <input type="text" name="name" placeholder="Imię" />
-          </div>
-          <div class="form-group form-group--50">
-            <input type="text" name="surname" placeholder="Nazwisko" />
-          </div>
+      <div class="form-group form-group&#45;&#45;buttons">
+              <button type="button" class="btn prev-step">Wstecz</button>
+              <button type="button" class="btn next-step">Dalej</button>
+              </div>
+              </div>
 
-          <div class="form-group">
-            <textarea
-              name="message"
-              placeholder="Wiadomość"
-              rows="1"
-            ></textarea>
-          </div>
+              &lt;!&ndash; STEP 4 &ndash;&gt;
+              <div data-step="4">
+              <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 
-          <button class="btn" type="submit">Wyślij</button>
-        </form>
-      </div>
-      <div class="bottom-line">
-        <span class="bottom-line--copy">Copyright &copy; 2018</span>
-        <div class="bottom-line--icons">
-          <a href="#" class="btn btn--small"
-            ><img src="../static/images/icon-facebook.svg"
-          /></a>
-          <a href="#" class="btn btn--small"
-            ><img src="../static/images/icon-instagram.svg"
-          /></a>
-        </div>
-      </div>
-    </footer>
+      <div class="form-section form-section&#45;&#45;columns">
+              <div class="form-section&#45;&#45;column">
+              <h4>Adres odbioru</h4>
+      <div class="form-group form-group&#45;&#45;inline">
+              <label> Ulica <form:input type="text" name="street" path="street"/></label>
+              </div>
 
-    <script src="js/app.js"></script>
-  </body>
-</html>
+              <div class="form-group form-group&#45;&#45;inline">
+              <label> Miasto <form:input type="text" name="city" path="city"/></label>
+              </div>
+
+              <div class="form-group form-group&#45;&#45;inline">
+              <label>
+              Kod pocztowy <form:input type="text" name="zipCode" path="zipCode"/>
+              </label>
+              </div>
+
+              <div class="form-group form-group&#45;&#45;inline">
+              <label>
+              Numer telefonu <form:input type="text" name="phone" path="phone"/>
+              </label>
+              </div>
+              </div>
+
+              <div class="form-section&#45;&#45;column">
+              <h4>Termin odbioru</h4>
+      <div class="form-group form-group&#45;&#45;inline">
+              <label> Data
+              <form:input type="date" name="date" path="pickUpDate"/></label>
+              </div>
+
+              <div class="form-group form-group&#45;&#45;inline">
+              <label> Godzina
+              <form:input type="time" name="time" path="pickUpTime"/></label>
+              </div>
+
+              <div class="form-group form-group&#45;&#45;inline">
+              <label>
+              Uwagi dla kuriera
+      <form:textarea name="pickUpComment" path="pickUpComment" rows="5"/>
+              </label>
+              </div>
+              </div>
+              </div>
+              <div class="form-group form-group&#45;&#45;buttons">
+              <button type="button" class="btn prev-step">Wstecz</button>
+              <button type="button" class="btn next-step">Dalej</button>
+              </div>
+              </div>
+
+              &lt;!&ndash; STEP 5 &ndash;&gt;
+              <div data-step="5">
+              <h3>Podsumowanie Twojej darowizny</h3>
+
+      <div class="summary">
+              <div class="form-section">
+              <h4>Oddajesz:</h4>
+      <ul>
+      <li>
+      <span class="icon icon-bag"></span>
+              <span id="bagsNumberSummary"></span>
+              <span id="bagsOf" class="summary&#45;&#45;text">&nbsp; worków z rzeczami: &nbsp;</span>
+      <span id="stuffTypeSummary"></span>
+              </li>
+              <li>
+              <span class="icon icon-hand"></span>
+              <span class="summary&#45;&#45;text">Dla fundacji:</span>
+      <span id="foundationSummary" class="summary&#45;&#45;text"></span>
+              </li>
+              </ul>
+              </div>
+
+              <div class="form-section form-section&#45;&#45;columns">
+              <div class="form-section&#45;&#45;column">
+              <h4>Adres odbioru:</h4>
+      <ul>
+      <li id="streetSummary"></li>
+              <li id="citySummary"></li>
+              <li id="zipCodeSummary"></li>
+              <li id="phoneSummary"></li>
+              </ul>
+              </div>
+
+              <div class="form-section&#45;&#45;column">
+              <h4>Termin odbioru:</h4>
+      <ul>
+      <li id="pickUpDateSummary"></li>
+              <li id="pickUpTimeSummary"></li>
+              <li id="pickUpCommentSummary"></li>
+              </ul>
+              </div>
+              </div>
+              </div>
+
+              <div class="form-group form-group&#45;&#45;buttons">
+              <button type="button" class="btn prev-step">Wstecz</button>
+              <button type="submit" class="btn">Potwierdzam</button>
+              </div>
+              </div>
+              </form:form>
+              </div>
+              </section>
+-->
+
+
+              </body>
+              </html>

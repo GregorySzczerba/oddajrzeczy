@@ -1,87 +1,49 @@
 package com.example.demo.Gifts;
 
-import com.example.demo.Organisation.Organisation;
-import com.example.demo.Organisation.OrganisationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.demo.Organisation.OrganisationService;
+import com.example.demo.User.User;
+import com.example.demo.User.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class GiftController {
 
-    @Autowired
+    private GiftsService giftsService;
+    private OrganisationService organisationService;
+    private UserService userService;
+    private TypeOfGiftsService typeOfGiftsService;
+    private TypeOfGiftRepository typeOfGiftRepository;
     private GiftsRepository giftsRepository;
 
-    @Autowired
-    private OrganisationRepository organisationRepository;
+    public GiftController(GiftsService giftsService, OrganisationService organisationService, UserService userService, TypeOfGiftsService typeOfGiftsService, TypeOfGiftRepository typeOfGiftRepository) {
+        this.giftsService = giftsService;
+        this.organisationService = organisationService;
+        this.userService = userService;
+        this.typeOfGiftsService = typeOfGiftsService;
+        this.typeOfGiftRepository = typeOfGiftRepository;
+    }
 
     @GetMapping("/form")
-    public ModelAndView addgifts() {
+    public ModelAndView addgifts(User user) {
         ModelAndView modelAndView = new ModelAndView();
-        Gifts gifts = new Gifts();
-        modelAndView.addObject("gifts", gifts);
+        modelAndView.addObject("gifts", new Gifts());
+        modelAndView.addObject("listTypeOfGifts", typeOfGiftRepository.findAll());
+        System.out.println(typeOfGiftRepository.findAll());
+        modelAndView.addObject("organisations", organisationService.selectOrganisations());
         modelAndView.setViewName("form");
         return modelAndView;
     }
 
     @PostMapping("/addgifts")
-    public String addGiftsPost(Gifts gifts, Model model) {
+    public String addGiftsPost(@ModelAttribute Gifts gifts, @RequestParam("foundationId") Long id, User user) {
+        gifts.setUser(userService.findUserById(user.getId()));
+        gifts.setOrganisation(organisationService.findById(id));
         giftsRepository.save(gifts);
-        model.addAttribute("gifts", gifts);
-        return"redirect:/form2/" + gifts.getId();
-    }
-
-    @GetMapping("/form2/{id}")
-    public ModelAndView addgifts2(@PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        Gifts gifts = giftsRepository.findOne(id);
-        modelAndView.addObject("gifts", gifts);
-        modelAndView.setViewName("form2");
-        return modelAndView;
-    }
-
-    @PostMapping("/addgifts2")
-    public String addGiftsPost2(Gifts gifts, Model model) {
-        giftsRepository.save(gifts);
-        model.addAttribute("gifts", gifts);
-        return"redirect:/form3/" + gifts.getId();
-    }
-
-    @GetMapping("/form3/{id}")
-    public ModelAndView addgifts3(@PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        Gifts gifts = giftsRepository.findOne(id);
-        List<Organisation> organisations = organisationRepository.findAll();
-        modelAndView.addObject("gifts", gifts);
-        modelAndView.addObject("organisations", organisations);
-        modelAndView.setViewName("form3");
-        return modelAndView;
-    }
-
-    @PostMapping("/addgifts3")
-    public String addGiftsPost3(@Valid Gifts gifts, BindingResult bindingResult, Model model) {
-        giftsRepository.save(gifts);
-
-        model.addAttribute("gifts", gifts);
-        return"redirect:/form4/" + gifts.getId();
-    }
-
-    @GetMapping("/form4/{id}")
-    public ModelAndView addgifts4(@PathVariable int id) {
-        ModelAndView modelAndView = new ModelAndView();
-        Gifts gifts = giftsRepository.findOne(id);
-        List<Organisation> organisations = organisationRepository.findAll();
-        modelAndView.addObject("gifts", gifts);
-        modelAndView.addObject("organisations", organisations);
-        modelAndView.setViewName("form4");
-        return modelAndView;
+        return"form2";
     }
 }

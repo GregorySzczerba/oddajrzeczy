@@ -988,7 +988,7 @@ function createDisabledPseudo( disabled ) {
 		// Only certain elements can match :enabled or :disabled
 		// https://html.spec.whatwg.org/multipage/scripting.html#selector-enabled
 		// https://html.spec.whatwg.org/multipage/scripting.html#selector-disabled
-		if ( "form" in elem ) {
+		if ( "templates.form" in elem ) {
 
 			// Check for inherited disabledness on relevant non-disabled elements:
 			// * listed form-associated elements in a disabled fieldset

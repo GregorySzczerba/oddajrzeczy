@@ -15,9 +15,9 @@ public class Gifts {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "gift_id")
     private int id;
-    @ElementCollection
-    private List<String> typeOfGift;
     private int quantityOfGifts;
+    @ManyToMany
+    private List<TypeOfGift> typeOfGifts;
     private String street;
     private String city;
     private String postCode;
@@ -34,30 +34,6 @@ public class Gifts {
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
 
-    public Organisation getOrganisation() {
-        return organisation;
-    }
-
-    public void setOrganisation(Organisation organisation) {
-        this.organisation = organisation;
-    }
-
-    public List<String> getTypeOfGift() {
-        return typeOfGift;
-    }
-
-    public void setTypeOfGift(List<String> typeOfGift) {
-        this.typeOfGift = typeOfGift;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public int getId() {
         return id;
     }
@@ -72,6 +48,14 @@ public class Gifts {
 
     public void setQuantityOfGifts(int quantityOfGifts) {
         this.quantityOfGifts = quantityOfGifts;
+    }
+
+    public List<TypeOfGift> getTypeOfGifts() {
+        return typeOfGifts;
+    }
+
+    public void setTypeOfGifts(List<TypeOfGift> typeOfGifts) {
+        this.typeOfGifts = typeOfGifts;
     }
 
     public String getStreet() {
@@ -128,5 +112,21 @@ public class Gifts {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Organisation getOrganisation() {
+        return organisation;
+    }
+
+    public void setOrganisation(Organisation organisation) {
+        this.organisation = organisation;
     }
 }
