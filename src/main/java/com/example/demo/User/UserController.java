@@ -4,7 +4,6 @@ import com.example.demo.ConfirmationToken.ConfirmationToken;
 import com.example.demo.ConfirmationToken.ConfirmationTokenRepository;
 import com.example.demo.Organisation.Organisation;
 import com.example.demo.Organisation.OrganisationService;
-import com.example.demo.role.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +25,6 @@ import java.util.List;
 @Transactional
 @Controller
 public class UserController {
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private UserService userService;

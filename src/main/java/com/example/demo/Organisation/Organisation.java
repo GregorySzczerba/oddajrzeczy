@@ -62,4 +62,15 @@ public class Organisation {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Organisation{" +
+                "id=" + id +
+                ", category=" + category +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

@@ -2,10 +2,11 @@ package com.example.demo.Gifts;
 
 import com.example.demo.Organisation.Organisation;
 import com.example.demo.User.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -14,16 +15,18 @@ public class Gifts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "gift_id")
-    private int id;
+    private Long id;
     private int quantityOfGifts;
     @ManyToMany
+    @JoinColumn(name = "type_of_gift_id")
     private List<TypeOfGift> typeOfGifts;
     private String street;
     private String city;
     private String postCode;
     private int phoneNumber;
-    private Date date;
-    private LocalDateTime time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+    private LocalTime time;
     private String remarks;
 
     @ManyToOne(cascade=CascadeType.ALL)
@@ -34,11 +37,11 @@ public class Gifts {
     @JoinColumn(name = "organisation_id")
     private Organisation organisation;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,7 +60,6 @@ public class Gifts {
     public void setTypeOfGifts(List<TypeOfGift> typeOfGifts) {
         this.typeOfGifts = typeOfGifts;
     }
-
     public String getStreet() {
         return street;
     }
@@ -90,19 +92,19 @@ public class Gifts {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public LocalDateTime getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -128,5 +130,23 @@ public class Gifts {
 
     public void setOrganisation(Organisation organisation) {
         this.organisation = organisation;
+    }
+
+    @Override
+    public String toString() {
+        return "Gifts{" +
+                "id=" + id +
+                ", quantityOfGifts=" + quantityOfGifts +
+                ", typeOfGifts=" + typeOfGifts +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                ", postCode='" + postCode + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ", date=" + date +
+                ", time=" + time +
+                ", remarks='" + remarks + '\'' +
+                ", user=" + user +
+                ", organisation=" + organisation +
+                '}';
     }
 }
