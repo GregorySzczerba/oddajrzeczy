@@ -13,7 +13,6 @@
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/css/vendor/datatables/dataTables.bootstrap4.css}"/>
-
     <!-- Page level plugin CSS-->
     <link rel="stylesheet" th:href="@{/css/vendor/fontawesome-free/css/all.min.css}"/>
 
@@ -216,72 +215,6 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
-                    Lista administratorów
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>email</th>
-                                <th>Usuwanie</th>
-                                <th>Edycja</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="person: ${admins}">
-                                <td th:text="${person.name}"/>
-                                <td th:text="${person.lastName}"/>
-                                <td th:text="${person.email}"/>
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${person.id} + '\');'"
-                                       class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/edituser/' + ${person.id}}" class="btn btn-warning">Edytuj</a></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-            </div>
-
-        </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Lista użytkowników
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>email</th>
-                            <th>Usuwanie</th>
-                            <th>Edycja</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="user: ${users}">
-                            <td th:text="${user.name}"/>
-                            <td th:text="${user.lastName}"/>
-                            <td th:text="${user.email}"/>
-                            <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${user.id} + '\');'"
-                                   class="btn btn-danger">Skasuj</a></td>
-                            <td><a th:href="@{'/edituser/' + ${user.id}}" class="btn btn-warning">Edytuj</a></td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
                     Lista fundacji
                 </div>
                 <div class="card-body">
@@ -311,8 +244,8 @@
                         </table>
                     </div>
                 </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
         </div>
     </div>
     <!-- /.container-fluid -->

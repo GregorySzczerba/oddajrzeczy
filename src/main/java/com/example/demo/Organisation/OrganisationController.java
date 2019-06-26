@@ -2,7 +2,6 @@ package com.example.demo.Organisation;
 
 import com.example.demo.Category.Category;
 import com.example.demo.Category.CategoryRepository;
-import com.example.demo.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,9 @@ public class OrganisationController {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    private CategoryService categoryService;
+
+    @Autowired
+    private OrganisationService organisationService;
 
     @GetMapping("/addorganisation")
     public String addorganisation(Model model) {
@@ -42,5 +43,12 @@ public class OrganisationController {
        organisation.setCategory(categoryRepository.getById(id));
        organisationRepository.save(organisation);
        return "redirect:adminpanel";
+    }
+
+    @GetMapping("/organisations")
+    public String organisations(Model model) {
+        List<Organisation> organisations = organisationService.selectOrganisations();
+        model.addAttribute("organisations", organisations);
+        return "organisations";
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -187,7 +188,7 @@ public class UserController {
         ConfirmationToken confirmationToken = confirmationTokenRepository.findByUserId(id);
         confirmationTokenRepository.delete(confirmationToken);
         userRepository.delete(user);
-        return "redirect:/adminpanel";
+        return "redirect:/admins";
     }
 
     @GetMapping("/edituser/{id}")
@@ -204,6 +205,26 @@ public class UserController {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
         return "redirect:/adminpanel";
+    }
+
+    @GetMapping("/admins")
+    public String admins(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Pageable pageableAdmins = new PageRequest(0, 5);
+        User user = userService.findUserByEmail(auth.getName());
+        List<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
+        model.addAttribute("admins", admins);
+        return "admins";
+    }
+
+    @GetMapping("/users")
+    public String users(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Pageable pageableAdmins = new PageRequest(0, 5);
+        User user = userService.findUserByEmail(auth.getName());
+        List<User> users = userService.selectUsers(user.getId(), 1, pageableAdmins);
+        model.addAttribute("users", users);
+        return "users";
     }
 
 }

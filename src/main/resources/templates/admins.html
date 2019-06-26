@@ -248,73 +248,6 @@
             </div>
 
         </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-table"></i>
-                Lista użytkowników
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>Imię</th>
-                            <th>Nazwisko</th>
-                            <th>email</th>
-                            <th>Usuwanie</th>
-                            <th>Edycja</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="user: ${users}">
-                            <td th:text="${user.name}"/>
-                            <td th:text="${user.lastName}"/>
-                            <td th:text="${user.email}"/>
-                            <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${user.id} + '\');'"
-                                   class="btn btn-danger">Skasuj</a></td>
-                            <td><a th:href="@{'/edituser/' + ${user.id}}" class="btn btn-warning">Edytuj</a></td>
-
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    Lista fundacji
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableOrganisations" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Nazwa</th>
-                                <th>Miasto</th>
-                                <th>Adres</th>
-                                <th>Kategoria</th>
-                                <th>Edycja</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="organisation: ${organisations}">
-                                <td th:text="${organisation.name}"/>
-                                <td th:text="${organisation.city}"/>
-                                <td th:text="${organisation.street}"/>
-                                <!--<td th:text="${organisation.category.name}"/>-->
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${organisation.id} + '\');'"
-                                       class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/editorganisation/' + ${organisation.id}}" class="btn btn-warning">Edytuj</a></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
-        </div>
-    </div>
     <!-- /.container-fluid -->
 
     <!-- Sticky Footer -->
@@ -376,7 +309,7 @@
 <!-- Demo scripts for this page-->
 <script th:src="@{/css/js/demo/datatables-demo.js}"></script>
 <script th:src="@{/css/js/demo/chart-area-demo.js}"></script>
-
+</div>
 </body>
 
 </html>
