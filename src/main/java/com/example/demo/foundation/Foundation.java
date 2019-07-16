@@ -1,4 +1,4 @@
-package com.example.demo.Organisation;
+package com.example.demo.foundation;
 
 import com.example.demo.Category.Category;
 
@@ -6,8 +6,8 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name = "organisation")
-public class Organisation {
+@Table(name = "foundations")
+public class Foundation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,7 +65,7 @@ public class Organisation {
 
     @Override
     public String toString() {
-        return "Organisation{" +
+        return "foundation{" +
                 "id=" + id +
                 ", category=" + category +
                 ", street='" + street + '\'' +

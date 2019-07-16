@@ -1,4 +1,4 @@
-package com.example.demo.Organisation;
+package com.example.demo.foundation;
 
 import com.example.demo.Category.Category;
 import com.example.demo.Category.CategoryRepository;
@@ -14,41 +14,41 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-public class OrganisationController {
+public class FoundationController {
 
     @Autowired
-    private OrganisationRepository organisationRepository;
+    private FoundationRepository foundationRepository;
 
     @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private OrganisationService organisationService;
+    private FoundationService foundationService;
 
     @GetMapping("/addorganisation")
     public String addorganisation(Model model) {
-        Organisation organisation = new Organisation();
-        model.addAttribute("organisation", organisation);
+        Foundation foundation = new Foundation();
+        model.addAttribute("organisation", foundation);
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("categories", categories);
         return "addorganisation";
     }
 
     @PostMapping("/addorganisation")
-    public String addorganisation (@Valid Organisation organisation, @RequestParam(name = "category.id") Long id, BindingResult bindingResult) {
+    public String addorganisation (@Valid Foundation foundation, @RequestParam(name = "category.id") Long id, BindingResult bindingResult) {
        if (bindingResult.hasErrors()) {
             return "addorganisation";
        }
 
-       organisation.setCategory(categoryRepository.getById(id));
-       organisationRepository.save(organisation);
+       foundation.setCategory(categoryRepository.getById(id));
+       foundationRepository.save(foundation);
        return "redirect:adminpanel";
     }
 
-    @GetMapping("/organisations")
+    @GetMapping("/foundations")
     public String organisations(Model model) {
-        List<Organisation> organisations = organisationService.selectOrganisations();
-        model.addAttribute("organisations", organisations);
-        return "organisations";
+        List<Foundation> foundations = foundationService.selectFoundations();
+        model.addAttribute("foundations", foundations);
+        return "foundations";
     }
 }

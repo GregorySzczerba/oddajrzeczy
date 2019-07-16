@@ -2,8 +2,8 @@ package com.example.demo.User;
 
 import com.example.demo.ConfirmationToken.ConfirmationToken;
 import com.example.demo.ConfirmationToken.ConfirmationTokenRepository;
-import com.example.demo.Organisation.Organisation;
-import com.example.demo.Organisation.OrganisationService;
+import com.example.demo.foundation.Foundation;
+import com.example.demo.foundation.FoundationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class UserController {
     private NotificationService notificationService;
 
     @Autowired
-    private OrganisationService organisationService;
+    private FoundationService foundationService;
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
@@ -76,11 +76,11 @@ public class UserController {
 
         List<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
         List<User> users = userService.selectUsers(user.getId(), 3, pageableUsers );
-        List<Organisation> organisations = organisationService.selectOrganisations();
+        List<Foundation> foundations = foundationService.selectFoundations();
 
         modelAndView.addObject("admins", admins);
         modelAndView.addObject("users", users);
-        modelAndView.addObject("organisations", organisations);
+        modelAndView.addObject("organisations", foundations);
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.setViewName("adminpanel");
         return modelAndView;
