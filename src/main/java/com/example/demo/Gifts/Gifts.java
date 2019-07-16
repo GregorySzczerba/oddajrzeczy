@@ -1,7 +1,7 @@
 package com.example.demo.Gifts;
 
-import com.example.demo.Organisation.Organisation;
 import com.example.demo.User.User;
+import com.example.demo.foundation.Foundation;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,26 +16,25 @@ public class Gifts {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "gift_id")
     private Long id;
-    private int quantityOfGifts;
+    private int bagsNumber;
     @ManyToMany
-    @JoinColumn(name = "type_of_gift_id")
     private List<TypeOfGift> typeOfGifts;
     private String street;
     private String city;
-    private String postCode;
-    private int phoneNumber;
+    private String zipCode;
+    private int phone;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate date;
-    private LocalTime time;
-    private String remarks;
+    private LocalDate pickUpDate;
+    private LocalTime pickUpTime;
+    private String pickUpComment;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "organisation_id")
-    private Organisation organisation;
+    @JoinColumn(name = "foundation")
+    private Foundation foundation;
 
     public Long getId() {
         return id;
@@ -45,12 +44,12 @@ public class Gifts {
         this.id = id;
     }
 
-    public int getQuantityOfGifts() {
-        return quantityOfGifts;
+    public int getBagsNumber() {
+        return bagsNumber;
     }
 
-    public void setQuantityOfGifts(int quantityOfGifts) {
-        this.quantityOfGifts = quantityOfGifts;
+    public void setBagsNumber(int bagsNumber) {
+        this.bagsNumber = bagsNumber;
     }
 
     public List<TypeOfGift> getTypeOfGifts() {
@@ -76,44 +75,44 @@ public class Gifts {
         this.city = city;
     }
 
-    public String getPostCode() {
-        return postCode;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
-    public int getPhoneNumber() {
-        return phoneNumber;
+    public int getPhone() {
+        return phone;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone(int phone) {
+        this.phone = phone;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getPickUpDate() {
+        return pickUpDate;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setPickUpDate(LocalDate pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getPickUpTime() {
+        return pickUpTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setPickUpTime(LocalTime pickUpTime) {
+        this.pickUpTime = pickUpTime;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public String getPickUpComment() {
+        return pickUpComment;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setPickUpComment(String pickUpComment) {
+        this.pickUpComment = pickUpComment;
     }
 
     public User getUser() {
@@ -124,29 +123,29 @@ public class Gifts {
         this.user = user;
     }
 
-    public Organisation getOrganisation() {
-        return organisation;
+    public Foundation getFoundation() {
+        return foundation;
     }
 
-    public void setOrganisation(Organisation organisation) {
-        this.organisation = organisation;
+    public void setFoundation(Foundation foundation) {
+        this.foundation = foundation;
     }
 
     @Override
     public String toString() {
         return "Gifts{" +
                 "id=" + id +
-                ", quantityOfGifts=" + quantityOfGifts +
+                ", bagsNumber=" + bagsNumber +
                 ", typeOfGifts=" + typeOfGifts +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
-                ", postCode='" + postCode + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", date=" + date +
-                ", time=" + time +
-                ", remarks='" + remarks + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", phone=" + phone +
+                ", pickUpDate=" + pickUpDate +
+                ", pickUpTime=" + pickUpTime +
+                ", pickUpComment='" + pickUpComment + '\'' +
                 ", user=" + user +
-                ", organisation=" + organisation +
+                ", foundation=" + foundation +
                 '}';
     }
 }

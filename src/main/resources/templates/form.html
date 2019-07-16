@@ -118,7 +118,7 @@
 
                 <div class="form-group form-group--inline">
                     <label> Liczba 60l worków:
-                        <input type="number" name="bags" th:field="*{quantityOfGifts}" step="1" min="1"/>
+                        <input type="number" name="bags" th:field="*{bagsNumber}" step="1" min="1"/>
                     </label>
                 </div>
 
@@ -131,13 +131,13 @@
             <!-- STEP 3-->
             <div data-step="3">
                 <h3>Wybierz organizacje, której chcesz pomóc:</h3>
-                <th:block th:each="organisation : ${organisations}">
+                <th:block th:each="foundation : ${foundations}">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="radio" name="foundationId" th:value="${organisation.id}"/>
+                            <input type="radio" name="foundationId" th:value="${foundation.id}"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
-                                <div class="title">Fundacja: <input type="text" th:text="${organisation.name}"/></div>
+                                <div class="title">Fundacja: <input th:text="${foundation.name}"/></div>
                             </span>
                         </label>
                     </div>
@@ -166,13 +166,13 @@
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Kod pocztowy <input type="text" th:field="*{postCode}"/>
+                                Kod pocztowy <input type="text" th:field="*{zipCode}"/>
                             </label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
-                                Numer telefonu <input type="text" th:field="*{phoneNumber}"/>
+                                Numer telefonu <input type="text" th:field="*{phone}"/>
                             </label>
                         </div>
                     </div>
@@ -181,28 +181,28 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <label> Data
-                                <input type="date" th:field="*{date}"/></label>
+                                <input type="date" th:field="*{pickUpDate}"/></label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label> Godzina
-                                <input type="time" th:field="*{time}"/></label>
+                                <input type="time" th:field="*{pickUpTime}"/></label>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <label>
                                 Uwagi dla kuriera
-                                <textarea th:field="*{remarks}" rows="5"/>
+                                <textarea th:field="*{pickUpComment}" rows="5"/>
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group form-group--buttons">
-                    <button type="button" class="btn prev-step">Wstecz</button>
+                        <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="button" class="btn next-step">Dalej</button>
                 </div>
             </div>
-            STEP 5
+            <!--STEP 5-->
             <div data-step="5">
                 <h3>Podsumowanie Twojej darowizny</h3>
 
@@ -248,7 +248,7 @@
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
                     <button type="submit" class="btn">Potwierdzam</button>
-                </div>0
+                </div>
             </div>
         </form>
     </div>

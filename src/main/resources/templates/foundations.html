@@ -20,7 +20,7 @@
     <link rel="stylesheet" th:href="@{/css/sb-admin.css}"/>
     <script>
         function confirmDelete(id) {
-            if (confirm("Czy na pewno chcesz usunąć użytkownika ?")) {
+            if (confirm("Czy na pewno chcesz usunąć fundację     ?")) {
                 window.location.href = "deleteuser/" + id;
             }
         }
@@ -112,7 +112,7 @@
                 <h6 class="dropdown-header">Operacje na:</h6>
                 <a class="dropdown-item" href="admins.html">administratorzy</a>
                 <a class="dropdown-item" href="users.html">użytkownicy</a>
-                <a class="dropdown-item" href="organisations">fundacje</a>
+                <a class="dropdown-item" href="foundations">fundacje</a>
                 <a class="dropdown-item" href="gifts">dary</a>
                 <a class="dropdown-item" href="categories">kategorie</a>
                 <div class="dropdown-divider"></div>
@@ -230,14 +230,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="organisation: ${organisations}">
-                                <td th:text="${organisation.name}"/>
-                                <td th:text="${organisation.city}"/>
-                                <td th:text="${organisation.street}"/>
-                                <!--<td th:text="${organisation.category.name}"/>-->
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${organisation.id} + '\');'"
+                            <tr th:each="foundation: ${foundations}">
+                                <td th:text="${foundation.name}"/>
+                                <td th:text="${foundation.city}"/>
+                                <td th:text="${foundation.street}"/>
+                                <!--<td th:text="${foundation.category.name}"/>-->
+                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${foundation.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/editorganisation/' + ${organisation.id}}" class="btn btn-warning">Edytuj</a></td>
+                                <td><a th:href="@{'/editorganisation/' + ${foundation.id}}" class="btn btn-warning">Edytuj</a></td>
 
                             </tr>
                             </tbody>
