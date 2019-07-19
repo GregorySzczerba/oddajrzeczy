@@ -1,8 +1,11 @@
 package com.example.demo.foundation;
 
 import com.example.demo.Category.Category;
+import com.example.demo.Gifts.Gifts;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -22,6 +25,9 @@ public class Foundation {
     private String city;
 
     private String name;
+
+    @OneToMany(mappedBy = "foundation", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    private List<Gifts> giftsList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -61,6 +67,15 @@ public class Foundation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public List<Gifts> getGiftsList() {
+        return giftsList;
+    }
+
+    public void setGiftsList(List<Gifts> giftsList) {
+        this.giftsList = giftsList;
     }
 
     @Override

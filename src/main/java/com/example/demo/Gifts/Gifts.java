@@ -28,11 +28,11 @@ public class Gifts {
     private LocalTime pickUpTime;
     private String pickUpComment;
 
-    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "foundation")
     private Foundation foundation;
 

@@ -234,7 +234,6 @@
                                 <td th:text="${foundation.name}"/>
                                 <td th:text="${foundation.city}"/>
                                 <td th:text="${foundation.street}"/>
-                                <!--<td th:text="${foundation.category.name}"/>-->
                                 <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${foundation.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
                                 <td><a th:href="@{'/editorganisation/' + ${foundation.id}}" class="btn btn-warning">Edytuj</a></td>

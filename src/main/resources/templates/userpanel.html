@@ -21,8 +21,8 @@
     <link rel="stylesheet" th:href="@{/css/sb-admin.css}"/>
     <script>
         function confirmDelete(id) {
-            if (confirm("Czy na pewno chcesz usunąć użytkownika ?")) {
-                window.location.href = "deleteuser/" + id;
+            if (confirm("Czy na pewno chcesz usunąć dar ?")) {
+                window.location.href = "deletegift/" + id;
             }
         }
     </script>
@@ -32,7 +32,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand mr-1" href="index.html">Panel uzytkownika</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -107,13 +107,11 @@
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
+                <span>Strony</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">Login Screens:</h6>
-                <a class="dropdown-item" href="login.html">Login</a>
-                <a class="dropdown-item" href="register.html">Register</a>
-                <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+                <a class="dropdown-item" href="form">Oddaj swoje rzeczy</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">Other Pages:</h6>
                 <a class="dropdown-item" href="404.html">404 Page</a>
@@ -152,7 +150,7 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-comments"></i>
                             </div>
-                            <div class="mr-5">26 New Messages!</div>
+                            <div class="mr-5"><a th:href="form" ><font color="white">Oddaj swoje rzeczy - formularz</font></a></div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">View Details</span>
@@ -213,17 +211,54 @@
             <!-- DataTables Example -->
             <h1 th:text = "'Witaj w panelu użytkownika' + ${userName}"></h1>
         <!-- Area Chart Example-->
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fas fa-chart-area"></i>
-                Area Chart Example
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Lista zgłoszonych darów
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTableOrganisations" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Miasto</th>
+                                <th>Ulica</th>
+                                <th>Imię i nazwisko</th>
+                                <th>telefon</th>
+                                <th>uwagi</th>
+                                <th>data</th>
+                                <th>godzina</th>
+                                <th>kod pocztowy</th>
+                                <th>ilość</th>
+                                <th>fundacja</th>
+                                <th>skasuj</th>
+                                <th>edytuj</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="gift: ${gifts}">
+                                <td th:text="${gift.city}"/>
+                                <td th:text="${gift.street}"/>
+                                <td th:text="${gift.user?.name + ' ' + gift.user?.lastName}"/>
+                                <td th:text="${gift.phone}"/>
+                                <td th:text="${gift.pickUpComment}"/>
+                                <td th:text="${gift.pickUpDate}"/>
+                                <td th:text="${gift.pickUpTime}"/>
+                                <td th:text="${gift.zipCode}"/>
+                                <td th:text="${gift.bagsNumber}"/>
+                                <td th:text="${gift.foundation?.name}"/>
+                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${gift.id} + '\');'"
+                                       class="btn btn-danger">Skasuj</a></td>
+                                <td><a th:href="@{'/editgift/' + ${gift.id}}" class="btn btn-warning">Edytuj</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div>
-            <div class="card-body">
-                <canvas id="myAreaChart" width="100%" height="30"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-        </div>
+    </div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
@@ -237,8 +272,6 @@
 
     </div>
     <!-- /.content-wrapper -->
-
-</div>
 <!-- /#wrapper -->
 
 <!-- Scroll to Top Button-->

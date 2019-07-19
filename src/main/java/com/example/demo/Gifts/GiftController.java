@@ -7,10 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,5 +56,12 @@ public class GiftController {
         System.out.println(gifts);
         model.addAttribute("gifts", gifts);
         return "gifts";
+    }
+
+    @GetMapping("/deletegift/{id}")
+    public String deletegift(@PathVariable Long id) {
+        Gifts gift = giftsRepository.findById(id);
+        giftsRepository.delete(gift);
+        return "redirect:/userpanel";
     }
 }

@@ -1,11 +1,15 @@
 package com.example.demo.User;
 
+import com.example.demo.ConfirmationToken.ConfirmationToken;
+import com.example.demo.Gifts.Gifts;
 import com.example.demo.role.Role;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,6 +39,11 @@ public class User  {
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    @OneToOne(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    private ConfirmationToken confirmationToken;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    private List<Gifts> giftsList = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -90,6 +99,22 @@ public class User  {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public ConfirmationToken getConfirmationToken() {
+        return confirmationToken;
+    }
+
+    public void setConfirmationToken(ConfirmationToken confirmationToken) {
+        this.confirmationToken = confirmationToken;
+    }
+
+    public List<Gifts> getGiftsList() {
+        return giftsList;
+    }
+
+    public void setGiftsList(List<Gifts> giftsList) {
+        this.giftsList = giftsList;
     }
 
     @Override

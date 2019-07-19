@@ -14,4 +14,12 @@ public class GiftsService {
     public List<Gifts> selectGifts() {
         return giftsRepository.findAll();
     }
+
+    public List<Gifts> userGifts(int id) {
+       List<Gifts> giftsList = giftsRepository.findAllByUserId(id);
+       return giftsList;
+    }
+
+    public void delete(Gifts gift) {
+    }
 }

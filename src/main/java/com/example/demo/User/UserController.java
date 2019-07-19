@@ -2,6 +2,7 @@ package com.example.demo.User;
 
 import com.example.demo.ConfirmationToken.ConfirmationToken;
 import com.example.demo.ConfirmationToken.ConfirmationTokenRepository;
+import com.example.demo.Gifts.GiftsService;
 import com.example.demo.foundation.Foundation;
 import com.example.demo.foundation.FoundationService;
 import org.slf4j.Logger;
@@ -42,6 +43,9 @@ public class UserController {
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
 
+    @Autowired
+    private GiftsService giftsService;
+
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/logged", method = RequestMethod.GET)
@@ -61,6 +65,7 @@ public class UserController {
         User user = userService.findUserByEmail(auth.getName());
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
+        modelAndView.addObject("gifts", giftsService.userGifts(user.getId()) );
         modelAndView.setViewName("userpanel");
         return modelAndView;
     }
