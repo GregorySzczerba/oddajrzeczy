@@ -221,6 +221,7 @@
                         <table class="table table-bordered" id="dataTableOrganisations" width="100%" cellspacing="0">
                             <thead>
                             <tr>
+                                <th>Odebrane</th>
                                 <th>Miasto</th>
                                 <th>Ulica</th>
                                 <th>Imię i nazwisko</th>
@@ -233,10 +234,13 @@
                                 <th>fundacja</th>
                                 <th>skasuj</th>
                                 <th>edytuj</th>
+                                <th>odebrane/nie odebrane</th>
+
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="gift: ${gifts}">
+                                <td th:text="${gift.pickedUpOrNot} ? 'odebrane' : 'nie odebrane'"/>
                                 <td th:text="${gift.city}"/>
                                 <td th:text="${gift.street}"/>
                                 <td th:text="${gift.user?.name + ' ' + gift.user?.lastName}"/>
@@ -250,6 +254,8 @@
                                 <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${gift.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
                                 <td><a th:href="@{'/editgift/' + ${gift.id}}" class="btn btn-warning">Edytuj</a></td>
+                                <td th:if="${gift.pickedUpOrNot}">odebrane</td>
+                                <td th:unless="${gift.pickedUpOrNot}"><a th:href="@{'/pickedUpOrNot/' + ${gift.id}}" class="btn btn-warning">Oznacz jako odebrany</a></td>
                             </tr>
                             </tbody>
                         </table>

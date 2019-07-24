@@ -27,14 +27,22 @@ public class Gifts {
     private LocalDate pickUpDate;
     private LocalTime pickUpTime;
     private String pickUpComment;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
     @ManyToOne
     @JoinColumn(name = "foundation")
     private Foundation foundation;
+
+    public boolean isPickedUpOrNot() {
+        return pickedUpOrNot;
+    }
+
+    public void setPickedUpOrNot(boolean pickedUpOrNot) {
+        this.pickedUpOrNot = pickedUpOrNot;
+    }
+
+    private boolean pickedUpOrNot;
 
     public Long getId() {
         return id;
@@ -146,6 +154,7 @@ public class Gifts {
                 ", pickUpComment='" + pickUpComment + '\'' +
                 ", user=" + user +
                 ", foundation=" + foundation +
+                ", pickedUpOrNot=" + pickedUpOrNot +
                 '}';
     }
 }

@@ -12,4 +12,6 @@ public interface GiftsRepository extends JpaRepository<Gifts, Integer> {
     public List<Gifts> findAllByUserId(int id);
 
     Gifts findById(Long id);
+
+    Gifts findAllByUserIdOrderByPickedUpOrNotAsc(int id);
 }

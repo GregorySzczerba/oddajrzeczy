@@ -44,8 +44,9 @@ public class GiftController {
     }
 
     @PostMapping("/addgifts")
-    public String addGiftsPost(@ModelAttribute Gifts gifts, @RequestParam("id") int userId, @RequestParam("foundationId") Long id) {
-        gifts.setFoundation(foundationService.findById(id));
+    public String addGiftsPost(@ModelAttribute Gifts gifts, @RequestParam("id") int userId, @RequestParam("foundationId") Long foundationId) {
+        Foundation foundation = foundationService.findById(foundationId);
+        gifts.setFoundation(foundation);
         gifts.setUser(userService.findUserById(userId));
         giftsRepository.save(gifts);
         return "redirect:userpanel";
@@ -54,7 +55,6 @@ public class GiftController {
     @GetMapping("/gifts")
     public String gifts(Model model) {
         List<Gifts> gifts = giftsService.selectGifts();
-        System.out.println(gifts);
         model.addAttribute("gifts", gifts);
         return "gifts";
     }
@@ -86,4 +86,18 @@ public class GiftController {
         giftsRepository.save(gift);
         return "redirect:userpanel";
     }
+
+    @GetMapping("/pickedUpOrNot/{id}")
+    public String pickedUpOrNot(@PathVariable String id) {
+        Gifts gifts = giftsRepository.findById(Long.valueOf(id));
+        if (gifts.isPickedUpOrNot() == false) {
+            gifts.setPickedUpOrNot(true);
+        } else {
+            gifts.setPickedUpOrNot(false);
+        }
+        giftsRepository.save(gifts);
+        return "redirect:/userpanel";
+    }
+
+
 }

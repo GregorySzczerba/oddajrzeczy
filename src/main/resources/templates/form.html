@@ -94,24 +94,22 @@
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
-
+                <span th:each="gift : ${listTypeOfGifts}">
                 <div class="form-group form-group--checkbox">
-                    <th:block  th:each="gift : ${listTypeOfGifts}">
-                        <label>
-                            <input type="checkbox" th:field="*{typeOfGifts}" th:value="${gift.id}"/>
-                            <span class="checkbox"></span>
-                            <span class="description"><input type="text" th:text="${gift.name}"/></span>
-
-                        </label>
-                    </th:block>
+                    <label>
+                        <input type="checkbox" th:value="${gift.id}"  />
+                        <span class="checkbox"></span>
+                        <span class="description" th:text="${gift.name}"></span>
+                    </label>
+                    <br/>
                 </div>
-                <input type="hidden" th:field="${user.id}"/>
-
+                </span>
+                <input type="hidden" th:field="${user.id}" name="id"/>
                 <div class="form-group form-group--buttons">
                     <button id="firstStepButton" type="button" class="btn next-step">Dalej</button>
                 </div>
-            </div>
 
+            </div>
             <!-- STEP 2 -->
             <div data-step="2">
                 <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
@@ -134,10 +132,10 @@
                 <th:block th:each="foundation : ${foundations}">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="radio" name="foundationId" th:value="${foundation.id}"/>
+                            <input type="radio" th:value="${foundation.id}" name="foundationId"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
-                                <div class="title">Fundacja: <input th:text="${foundation.name}"/></div>
+                                <div class="title">Fundacja: <span th:text="${foundation.name}"/></div>
                             </span>
                         </label>
                     </div>
