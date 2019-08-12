@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,19 +26,19 @@ public class FoundationController {
     @Autowired
     private FoundationService foundationService;
 
-    @GetMapping("/addorganisation")
-    public String addorganisation(Model model) {
+    @GetMapping("/addfoundation")
+    public String addfoundation(Model model) {
         Foundation foundation = new Foundation();
-        model.addAttribute("organisation", foundation);
+        model.addAttribute("foundation", foundation);
         List<Category> categories = categoryRepository.findAll();
         model.addAttribute("categories", categories);
-        return "addorganisation";
+        return "addfoundation";
     }
 
-    @PostMapping("/addorganisation")
-    public String addorganisation (@Valid Foundation foundation, @RequestParam(name = "category.id") Long id, BindingResult bindingResult) {
+    @PostMapping("/addfoundation")
+    public String addfoundation (@Valid Foundation foundation, BindingResult bindingResult, @RequestParam(name = "category.id") Long id) {
        if (bindingResult.hasErrors()) {
-            return "addorganisation";
+            return "redirect:admimnpanel";
        }
 
        foundation.setCategory(categoryRepository.getById(id));
@@ -50,5 +51,27 @@ public class FoundationController {
         List<Foundation> foundations = foundationService.selectFoundations();
         model.addAttribute("foundations", foundations);
         return "foundations";
+    }
+
+    @GetMapping("/editfoundation/{id}")
+    public String editfoundation(@PathVariable Long id, Model model) {
+        Foundation foundation = foundationRepository.getById(id);
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("foundation", foundation);
+        model.addAttribute("categories", categories);
+        return "editfoundation";
+    }
+
+    @PostMapping("/editfoundation")
+    public String editfoundation(Foundation foundation) {
+        foundationRepository.save(foundation);
+        return "redirect:adminpanel";
+    }
+
+    @GetMapping("/deletefoundation/{id}")
+    public String deletefoundation(@PathVariable Long id) {
+        Foundation foundation = foundationRepository.getById(id);
+        foundationRepository.delete(foundation);
+        return "redirect:/adminpanel";
     }
 }

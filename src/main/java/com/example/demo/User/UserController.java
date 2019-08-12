@@ -85,7 +85,7 @@ public class UserController {
 
         modelAndView.addObject("admins", admins);
         modelAndView.addObject("users", users);
-        modelAndView.addObject("organisations", foundations);
+        modelAndView.addObject("foundations", foundations);
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.setViewName("adminpanel");
         return modelAndView;
@@ -193,7 +193,7 @@ public class UserController {
         ConfirmationToken confirmationToken = confirmationTokenRepository.findByUserId(id);
         confirmationTokenRepository.delete(confirmationToken);
         userRepository.delete(user);
-        return "redirect:/admins";
+        return "redirect:/adminpanel";
     }
 
     @GetMapping("/edituser/{id}")

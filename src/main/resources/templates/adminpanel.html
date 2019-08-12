@@ -26,6 +26,13 @@
             }
         }
     </script>
+    <script>
+        function confirmDeleteFoundation(id) {
+            if (confirm("Czy na pewno chcesz usunąć fundację ?")) {
+                window.location.href = "deletefoundation/" + id;
+            }
+        }
+    </script>
 </head>
 
 <body id="page-top">
@@ -141,7 +148,7 @@
             <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
+                    <a th:href="@{'/adminpanel'}">adminpanel</a>
                 </li>
                 <li class="breadcrumb-item active">Overview</li>
             </ol>
@@ -149,19 +156,13 @@
             <!-- Icon Cards-->
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-primary o-hidden h-100">
+                    <div class="card text-white bg-warning o-hidden h-100">
                         <div class="card-body">
                             <div class="card-body-icon">
-                                <i class="fas fa-fw fa-comments"></i>
+                                <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addorganisation">Dodaj fundację</a></div>
+                            <a th:href="@{'/addfoundation'}">Dodaj fundację</a>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -170,14 +171,8 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addadmin">Dodaj administratora</a></div>
+                            <div class="mr-5"><a th:href="@{'/addadmin'}">Dodaj administratora</a></div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -186,14 +181,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addcategory">Dodaj kategorię</a></div>
+                            <div class="mr-5"><a th:href="@{'/addcategory/'}">Dodaj kategorię</a>
+                            </div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -202,14 +192,10 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-life-ring"></i>
                             </div>
-                            <div class="mr-5">13 New Tickets!</div>
+                            <div class="mr-5"><a th:href="@{'/form'}">Dodaj dar</a>
+                            </div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a></div>
+                    </div>
                 </div>
             </div>
             <!-- DataTables Example -->
@@ -302,17 +288,19 @@
                                 <td th:text="${foundation.city}"/>
                                 <td th:text="${foundation.street}"/>
                                 <!--<td th:text="${foundation.category.name}"/>-->
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${foundation.id} + '\');'"
+                                <td><a href="#"
+                                       th:onclick="'javascript:confirmDeleteFoundation(\'' + ${foundation.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/editorganisation/' + ${foundation.id}}" class="btn btn-warning">Edytuj</a></td>
+                                <td><a th:href="@{'/editfoundation/' + ${foundation.id}}"
+                                       class="btn btn-warning">Edytuj</a></td>
 
                             </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
         </div>
     </div>
     <!-- /.container-fluid -->

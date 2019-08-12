@@ -9,7 +9,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Panel administratora</title>
+    <title>Dodaj fundacje</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/css/vendor/datatables/dataTables.bootstrap4.css}"/>
@@ -136,23 +136,30 @@
 
         <div class="container-fluid">
 
+            <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a th:href="@{'/adminpanel'}">adminpanel</a>
+                    <a href="adminpanel">Panel</a>
                 </li>
-                <li class="breadcrumb-item active">addadmin</li>
+                <li class="breadcrumb-item active">editfoundation (Edytuj fundację)</li>
             </ol>
 
             <!-- Icon Cards-->
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-warning o-hidden h-100">
+                    <div class="card text-white bg-primary o-hidden h-100">
                         <div class="card-body">
                             <div class="card-body-icon">
-                                <i class="fas fa-fw fa-list"></i>
+                                <i class="fas fa-fw fa-comments"></i>
                             </div>
-                            <a th:href="@{'/addfoundation'}">Dodaj fundację</a>
+                            <div class="mr-5">26 New Messages!</div>
                         </div>
+                        <a class="card-footer text-white clearfix small z-1" href="#">
+                            <span class="float-left">View Details</span>
+                            <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -161,8 +168,14 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a th:href="@{'/addadmin'}">Dodaj administratora</a></div>
+                            <div class="mr-5"><a href="addadmin">Dodaj administratora</a></div>
                         </div>
+                        <a class="card-footer text-white clearfix small z-1" href="#">
+                            <span class="float-left">View Details</span>
+                            <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -171,9 +184,14 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                             </div>
-                            <div class="mr-5"><a th:href="@{'/addcategory/'}">Dodaj kategorię</a>
-                            </div>
+                            <div class="mr-5">123 New Orders!</div>
                         </div>
+                        <a class="card-footer text-white clearfix small z-1" href="#">
+                            <span class="float-left">View Details</span>
+                            <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -182,102 +200,100 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-life-ring"></i>
                             </div>
-                            <div class="mr-5"><a th:href="@{'/form'}">Dodaj dar</a>
-                            </div>
+                            <div class="mr-5">13 New Tickets!</div>
                         </div>
-                    </div>
+                        <a class="card-footer text-white clearfix small z-1" href="#">
+                            <span class="float-left">View Details</span>
+                            <span class="float-right">
+                  <i class="fas fa-angle-right"></i>
+                </span>
+                        </a>                    </div>
                 </div>
             </div>
-            <form autocomplete="off" action="#" th:action="@{/addadmin}"
-                  th:object="${user}" method="post" class="form-horizontal"
+            <form autocomplete="off" action="#" th:action="@{/editfoundation}"
+                  th:object="${foundation}" method="post" class="form-horizontal"
                   role="form">
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                                class="validation-message"></label>
-                        <input type="text" th:field="*{name}" placeholder="Imię"
+                        <input type="text" th:field="*{name}" placeholder="Nazwa"
                                class="form-control" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                        <label	th:if="${#fields.hasErrors('street')}" th:errors="*{street}"
                                   class="validation-message"></label>
-                        <input type="text" th:field="*{lastName}"
-                               placeholder="Nazwisko" class="form-control" />
+                        <input type="text" th:field="*{street}"
+                               placeholder="Ulica  i numer  " class="form-control" />
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="text" th:field="*{email}" placeholder="Email"
+                        <input type="text" th:field="*{city}" placeholder="Miasto"
                                class="form-control" /> <label
-                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                            th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
                             class="validation-message"></label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-9">
+                            <select class="form-control" th:field="*{category.id}">
+                                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}">
+                                </option>
+                            </select>
+
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <input type="password" th:field="*{password}"
-                               placeholder="Hasło" class="form-control" /> <label
-                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
-                            class="validation-message"></label>
+                        <button type="submit" class="btn btn-primary btn-block">Dodaj fundację</button>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Dodaj</button>
-                    </div>
-                </div>
-
                 <span th:utext="${successMessage}"></span>
-
-
             </form>
-
-
             <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Your Website 2019</span>
+                    </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+
+        </div>
+        <!-- /.content-wrapper -->
 
     </div>
-    <!-- /.content-wrapper -->
+    <!-- /#wrapper -->
 
-</div>
-<!-- /#wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/css/vendor/jquery/jquery.min.js}"></script>

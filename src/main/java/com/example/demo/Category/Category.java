@@ -1,8 +1,11 @@
 package com.example.demo.Category;
 
-import javax.persistence.*;
+import com.example.demo.foundation.Foundation;
 
-    @Entity
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
     @Table(name = "categories")
     public class Category {
 
@@ -10,6 +13,9 @@ import javax.persistence.*;
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         private String name;
+        @OneToMany
+        @JoinColumn(name = "category")
+        private List<Foundation> foundation;
 
         public Long getId() {
             return id;
@@ -25,6 +31,14 @@ import javax.persistence.*;
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public List<Foundation> getFoundation() {
+            return foundation;
+        }
+
+        public void setFoundation(List<Foundation> foundation) {
+            this.foundation = foundation;
         }
 
         @Override

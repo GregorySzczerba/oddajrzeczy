@@ -16,8 +16,7 @@ public class Foundation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @ManyToOne
     private Category category;
 
     private String street;
