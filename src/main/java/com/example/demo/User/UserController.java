@@ -63,6 +63,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
+        modelAndView.addObject("user", user);
         modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
         modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
         modelAndView.addObject("gifts", giftsService.userGifts(user.getId()) );
@@ -144,10 +145,7 @@ public class UserController {
         {
             modelAndView.addObject("message","The link is invalid or broken!");
             modelAndView.setViewName("error");
-
-
         }
-
         return modelAndView;
     }
 
@@ -212,6 +210,22 @@ public class UserController {
         return "redirect:/adminpanel";
     }
 
+    @GetMapping("/editLoggedUser")
+    public String editLoggedUser(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user", user);
+        return "editLoggedUser";
+    }
+
+    @PostMapping("/editLoggedUser")
+    public String editLoggedUser(User user, BindingResult bindingResult) {
+        user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
+        user.setActive(1);
+        userRepository.save(user);
+        return "redirect:/userpanel";
+    }
+
     @GetMapping("/admins")
     public String admins(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -227,10 +241,21 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Pageable pageableAdmins = new PageRequest(0, 5);
         User user = userService.findUserByEmail(auth.getName());
-        List<User> users = userService.selectUsers(user.getId(), 1, pageableAdmins);
+        List<User> users = userService.selectUsers(user.getId(), 3, pageableAdmins);
         model.addAttribute("users", users);
         return "users";
     }
 
+    @GetMapping("/blockuser/{id}")
+    public String blockuser(@PathVariable  int id) {
+        User user = userRepository.findById(id);
+        if (user.getActive() == 0) {
+            user.setActive(1);
+        } else {
+            user.setActive(0);
+        }
+        userRepository.save(user);
+        return "redirect:/users";
+    }
 }
 

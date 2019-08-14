@@ -16,10 +16,8 @@
         <ul class="nav--actions">
             <li class="logged-user">
                 <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Ustawienia</a></li>
-                    <li><a href="#">Moje zbiórki</a></li>
-                    <!--<li><a href="/logout"/>">Wyloguj</a></li>-->
+                    <li><a href="userpanel">Profil</a></li>
+                    <li><a href="logout">Wyloguj</a></li>
                 </ul>
             </li>
         </ul>
@@ -94,12 +92,12 @@
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
-                <span th:each="gift : ${listTypeOfGifts}">
+                <span th:each="typeOfGift : ${listTypeOfGifts}">
                 <div class="form-group form-group--checkbox">
                     <label>
-                        <input type="checkbox" th:value="${gift.id}"  />
+                        <input type="checkbox" th:value="${typeOfGift.id}"/>
                         <span class="checkbox"></span>
-                        <span class="description" th:text="${gift.name}"></span>
+                        <span class="description" th:text="${typeOfGift.name}"></span>
                     </label>
                     <br/>
                 </div>

@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
 
-    <meta charset="UTF-8"/>
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Dodaj fundacje</title>
+    <title>Panel administratora</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/css/vendor/datatables/dataTables.bootstrap4.css}"/>
-
     <!-- Page level plugin CSS-->
     <link rel="stylesheet" th:href="@{/css/vendor/fontawesome-free/css/all.min.css}"/>
 
@@ -21,8 +20,8 @@
     <link rel="stylesheet" th:href="@{/css/sb-admin.css}"/>
     <script>
         function confirmDelete(id) {
-            if (confirm("Czy na pewno chcesz usunąć użytkownika ?")) {
-                window.location.href = "deleteuser/" + id;
+            if (confirm("Czy na pewno chcesz usunąć kategorię     ?")) {
+                window.location.href = "deletecategory/" + id;
             }
         }
     </script>
@@ -139,7 +138,7 @@
                 <li class="breadcrumb-item">
                     <a th:href="@{'/adminpanel'}">adminpanel</a>
                 </li>
-                <li class="breadcrumb-item active">addcategory</li>
+                <li class="breadcrumb-item active">categories</li>
             </ol>
 
             <!-- Icon Cards-->
@@ -188,65 +187,81 @@
                 </div>
             </div>
 
-            <form autocomplete="off" action="#" th:action="@{/addcategory}"
-                  th:object="${category}" method="post" class="form-horizontal"
-                  role="form">
-                <div class="form-group">
-                    <div class="col-sm-9">
-                        <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-                               class="validation-message"></label>
-                        <input type="text" th:field="*{name}" placeholder="Nazwa"
-                               class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary btn-block">Dodaj kategorię fundacji</button>
-                        </div>
-                    </div>
-                    <span th:utext="${successMessage}"></span>
+            <!-- DataTables Example -->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table"></i>
+                    Lista zgłoszonych darów
                 </div>
-            </form>
-            <!-- /.container-fluid -->
-            <!-- Sticky Footer -->
-            <footer class="sticky-footer">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright © Your Website 2019</span>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTableOrganisations" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>Id kategorii</th>
+                                <th>Nazwa</th>
+                                <th>Skasuj</th>
+                                <th>Edytuj</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="category: ${categories}">
+                                <td th:text="${category.id}"/>
+                                <td th:text="${category.name}"/>
+                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${category.id} + '\');'"
+                                       class="btn btn-danger">Skasuj</a></td>
+                                <td><a th:href="@{'/editcategory/' + ${category.id}}" class="btn btn-warning">Edytuj</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </footer>
-
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
         </div>
-        <!-- /.content-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
+    <!-- /.container-fluid -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
+</div>
+<!-- /.content-wrapper -->
+
+
+<!-- /#wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
             </div>
         </div>
     </div>
 </div>
+
 <!-- Bootstrap core JavaScript-->
 <script th:src="@{/css/vendor/jquery/jquery.min.js}"></script>
 

@@ -109,18 +109,15 @@
                 <span>Zarządzanie</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">Operacje na:</h6>
-                <a class="dropdown-item" href="admins.html">administratorzy</a>
-                <a class="dropdown-item" href="users.html">użytkownicy</a>
-                <a class="dropdown-item" href="foundations">fundacje</a>
-                <a class="dropdown-item" href="gifts">dary</a>
-                <a class="dropdown-item" href="categories">kategorie</a>
+                <a class="dropdown-item" th:href="@{'/admins'}">administratorami</a>
+                <a class="dropdown-item" th:href="@{'/users'}">użytkownikami</a>
+                <a class="dropdown-item" th:href="@{'/foundations'}">fundacjami</a>
+                <a class="dropdown-item" th:href="@{'/gifts'}">darami</a>
+                <a class="dropdown-item" th:href="@{'/categories'}">kategoriami</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">Other Pages:</h6>
-                <a class="dropdown-item" href="404.html">404 Page</a>
-                <a class="dropdown-item" href="blank.html">Blank Page</a>
             </div>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
@@ -137,30 +134,23 @@
 
         <div class="container-fluid">
 
-            <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a href="#">Dashboard</a>
+                    <a th:href="@{'/adminpanel'}">adminpanel</a>
                 </li>
-                <li class="breadcrumb-item active">Overview</li>
+                <li class="breadcrumb-item active">foundations</li>
             </ol>
 
             <!-- Icon Cards-->
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-primary o-hidden h-100">
+                    <div class="card text-white bg-warning o-hidden h-100">
                         <div class="card-body">
                             <div class="card-body-icon">
-                                <i class="fas fa-fw fa-comments"></i>
+                                <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addorganisation">Dodaj fundację</a></div>
+                            <a th:href="@{'/addfoundation'}">Dodaj fundację</a>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -169,14 +159,8 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addadmin">Dodaj administratora</a></div>
+                            <div class="mr-5"><a th:href="@{'/addadmin'}">Dodaj administratora</a></div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -185,14 +169,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                             </div>
-                            <div class="mr-5"><a th:href="addcategory">Dodaj kategorię</a></div>
+                            <div class="mr-5"><a th:href="@{'/addcategory/'}">Dodaj kategorię</a>
+                            </div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -201,23 +180,18 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-life-ring"></i>
                             </div>
-                            <div class="mr-5">13 New Tickets!</div>
+                            <div class="mr-5"><a th:href="@{'/form'}">Dodaj dar</a>
+                            </div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a></div>
+                    </div>
                 </div>
             </div>
+
             <!-- DataTables Example -->
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
                     Lista fundacji
-                    <td><a th:href="@{'/addfoundation/'}" class="btn btn-warning">Dodaj fundację</a></td>
-
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -238,7 +212,8 @@
                                 <td th:text="${foundation.street}"/>
                                 <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${foundation.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/editorganisation/' + ${foundation.id}}" class="btn btn-warning">Edytuj</a></td>
+                                <td><a th:href="@{'/editorganisation/' + ${foundation.id}}" class="btn btn-warning">Edytuj</a>
+                                </td>
 
                             </tr>
                             </tbody>

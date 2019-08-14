@@ -13,7 +13,7 @@ public class TypeOfGiftsService {
         return typeOfGiftRepository.findAll();
     }
 
-    public TypeOfGift getById(Long id) {
+    public TypeOfGift   getById(Long id) {
         return typeOfGiftRepository.findOne(id);
     }
 }

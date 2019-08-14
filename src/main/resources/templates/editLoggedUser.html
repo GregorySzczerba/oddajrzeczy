@@ -9,7 +9,7 @@
     <meta name="description" content=""/>
     <meta name="author" content=""/>
 
-    <title>Dodaj fundacje</title>
+    <title>Edytuj swoje dane</title>
 
     <!-- Custom fonts for this template-->
     <link rel="stylesheet" th:href="@{/css/vendor/datatables/dataTables.bootstrap4.css}"/>
@@ -98,27 +98,23 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" th:href="@{'/userpanel'}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span>
+                <span>User Panel</span>
             </a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Zarządzanie</span>
+                <span>Strony</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <a class="dropdown-item" th:href="@{'/admins'}">administratorami</a>
-                <a class="dropdown-item" th:href="@{'/users'}">użytkownikami</a>
-                <a class="dropdown-item" th:href="@{'/foundations'}">fundacjami</a>
-                <a class="dropdown-item" th:href="@{'/gifts'}">darami</a>
-                <a class="dropdown-item" th:href="@{'/categories'}">kategoriami</a>
+                <a class="dropdown-item" th:href="@{'/form'}">Dodaj dar</a>
+                <a class="dropdown-item" th:href="@{'/editLoggedUser'}">Edytu swoje dane</a>
                 <div class="dropdown-divider"></div>
             </div>
         </li>
-
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
@@ -135,78 +131,67 @@
 
         <div class="container-fluid">
 
+            <!-- Breadcrumbs-->
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a th:href="@{'/adminpanel'}">adminpanel</a>
+                    <a href="../userpanel">Panel</a>
                 </li>
-                <li class="breadcrumb-item active">addcategory</li>
+                <li class="breadcrumb-item active">edituser (Edytuj swoje dane)</li>
             </ol>
 
             <!-- Icon Cards-->
-            <div class="row">
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-warning o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-list"></i>
-                            </div>
-                            <a th:href="@{'/addfoundation'}">Dodaj fundację</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-warning o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-list"></i>
-                            </div>
-                            <div class="mr-5"><a th:href="@{'/addadmin'}">Dodaj administratora</a></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-success o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                            </div>
-                            <div class="mr-5"><a th:href="@{'/addcategory/'}">Dodaj kategorię</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-danger o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-life-ring"></i>
-                            </div>
-                            <div class="mr-5"><a th:href="@{'/form'}">Dodaj dar</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <form autocomplete="off" action="#" th:action="@{/addcategory}"
-                  th:object="${category}" method="post" class="form-horizontal"
+            <form autocomplete="off" action="#" th:action="@{/editLoggedUser}"
+                  th:object="${user}" method="post" class="form-horizontal"
                   role="form">
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                                class="validation-message"></label>
-                        <input type="text" th:field="*{name}" placeholder="Nazwa"
+                        <input type="text" th:field="*{name}" placeholder="Imię"
                                class="form-control" />
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-9">
-                            <button type="submit" class="btn btn-primary btn-block">Dodaj kategorię fundacji</button>
-                        </div>
-                    </div>
-                    <span th:utext="${successMessage}"></span>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                  class="validation-message"></label>
+                        <input type="text" th:field="*{lastName}"
+                               placeholder="Nazwisko" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{email}" placeholder="Email"
+                               class="form-control" /> <label
+                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="password" th:field="*{password}"
+                               placeholder="Hasło" class="form-control" /> <label
+                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+                <input type="hidden" th:field="*{id}" name="id"/>
+                <input type="hidden" th:field="*{roles}"/>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Zapisz</button>
+                    </div>
+                </div>
+
+                <span th:utext="${successMessage}"></span>
+
+
             </form>
+
+
             <!-- /.container-fluid -->
+
             <!-- Sticky Footer -->
             <footer class="sticky-footer">
                 <div class="container my-auto">

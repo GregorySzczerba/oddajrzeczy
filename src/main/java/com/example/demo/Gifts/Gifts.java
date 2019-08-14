@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -33,6 +34,16 @@ public class Gifts {
     @ManyToOne
     @JoinColumn(name = "foundation")
     private Foundation foundation;
+
+    private LocalDateTime pickedUpByCarrier;
+
+    public LocalDateTime getPickedUpByCarrier() {
+        return pickedUpByCarrier;
+    }
+
+    public void setPickedUpByCarrier(LocalDateTime pickedUpByCarrier) {
+        this.pickedUpByCarrier = pickedUpByCarrier;
+    }
 
     public boolean isPickedUpOrNot() {
         return pickedUpOrNot;

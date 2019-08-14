@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -88,10 +89,11 @@ public class GiftController {
     }
 
     @GetMapping("/pickedUpOrNot/{id}")
-    public String pickedUpOrNot(@PathVariable String id) {
-        Gifts gifts = giftsRepository.findById(Long.valueOf(id));
+    public String pickedUpOrNot(@PathVariable Long id, Model model) {
+        Gifts gifts = giftsRepository.findById(id);
         if (gifts.isPickedUpOrNot() == false) {
             gifts.setPickedUpOrNot(true);
+            gifts.setPickedUpByCarrier(LocalDateTime.now());
         } else {
             gifts.setPickedUpOrNot(false);
         }

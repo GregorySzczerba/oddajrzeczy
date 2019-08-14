@@ -98,9 +98,9 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" th:href="@{'/userpanel'}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span>
+                <span>User Panel</span>
             </a>
         </li>
         <li class="nav-item dropdown">
@@ -110,12 +110,9 @@
                 <span>Strony</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                <h6 class="dropdown-header">Login Screens:</h6>
-                <a class="dropdown-item" href="form">Oddaj swoje rzeczy</a>
+                <a class="dropdown-item" th:href="@{'/form'}">Dodaj dar</a>
+                <a class="dropdown-item" th:href="@{'/editLoggedUser'}">Edytuj swoje dane</a>
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">Other Pages:</h6>
-                <a class="dropdown-item" href="404.html">404 Page</a>
-                <a class="dropdown-item" href="blank.html">Blank Page</a>
             </div>
         </li>
         <li class="nav-item">
@@ -150,14 +147,9 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-comments"></i>
                             </div>
-                            <div class="mr-5"><a th:href="form" ><font color="white">Oddaj swoje rzeczy - formularz</font></a></div>
+                            <div class="mr-5"><a th:href="form"><font color="white">Oddaj swoje rzeczy -
+                                formularz</font></a></div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
                 </div>
                 <div class="col-xl-3 col-sm-6 mb-3">
@@ -166,51 +158,14 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5"><a href="addadmin">Dodaj administratora</a> </div>
+                            <div class="mr-5"><a th:href="@{'editLoggedUser'}">Edytuj swoje dane</a></div>
                         </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
                     </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-success o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                            </div>
-                            <div class="mr-5">123 New Orders!</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-danger o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-life-ring"></i>
-                            </div>
-                            <div class="mr-5">13 New Tickets!</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                            <span class="float-left">View Details</span>
-                            <span class="float-right">
-                  <i class="fas fa-angle-right"></i>
-                </span>
-                        </a>                    </div>
                 </div>
             </div>
             <!-- DataTables Example -->
-            <h1 th:text = "'Witaj w panelu użytkownika' + ${userName}"></h1>
-        <!-- Area Chart Example-->
+            <h1 th:text="'Witaj w panelu użytkownika' + ${userName}"></h1>
+            <!-- Area Chart Example-->
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-table"></i>
@@ -251,11 +206,14 @@
                                 <td th:text="${gift.zipCode}"/>
                                 <td th:text="${gift.bagsNumber}"/>
                                 <td th:text="${gift.foundation?.name}"/>
+                                <td th:text="${gift.foundation?.name}"/>
                                 <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${gift.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
                                 <td><a th:href="@{'/editgift/' + ${gift.id}}" class="btn btn-warning">Edytuj</a></td>
-                                <td th:if="${gift.pickedUpOrNot}">odebrane</td>
-                                <td th:unless="${gift.pickedUpOrNot}"><a th:href="@{'/pickedUpOrNot/' + ${gift.id}}" class="btn btn-warning">Oznacz jako odebrany</a></td>
+                                <td th:if="${gift.pickedUpOrNot}" th:text="${gift.pickedUpByCarrier}"></td>
+                                <td th:unless="${gift.pickedUpOrNot}"><a th:href="@{'/pickedUpOrNot/' + ${gift.id}}"
+                                                                         class="btn btn-warning">Oznacz jako
+                                    odebrany</a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -265,19 +223,19 @@
             </div>
         </div>
     </div>
-        <!-- /.container-fluid -->
+    <!-- /.container-fluid -->
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Your Website 2019</span>
-                </div>
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-    </div>
-    <!-- /.content-wrapper -->
+</div>
+<!-- /.content-wrapper -->
 <!-- /#wrapper -->
 
 <!-- Scroll to Top Button-->
