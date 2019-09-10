@@ -88,14 +88,14 @@
     <div class="form--steps-container">
         <div class="form--steps-counter">Krok <span>1</span>/4</div>
 
-        <form th:action="@{/addgifts}" th:object="${gifts}" method="post">
+        <form th:action="@{/addgifts}" th:object="${gifts}"  method="post">
             <!-- STEP 1: class .active is switching steps -->
             <div data-step="1" class="active">
                 <h3>Zaznacz co chcesz oddać:</h3>
                 <span th:each="typeOfGift : ${listTypeOfGifts}">
                 <div class="form-group form-group--checkbox">
                     <label>
-                        <input type="checkbox" th:value="${typeOfGift.id}"/>
+                        <input th:type="checkbox" th:field="*{typeOfGifts}"  th:value="${typeOfGift.id}"/>
                         <span class="checkbox"></span>
                         <span class="description" th:text="${typeOfGift.name}"></span>
                     </label>

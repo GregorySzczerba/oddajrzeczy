@@ -188,8 +188,7 @@ public class UserController {
     @GetMapping("/deleteuser/{id}")
     public String delete(@PathVariable int id) {
         User user = userRepository.findById(id);
-        ConfirmationToken confirmationToken = confirmationTokenRepository.findByUserId(id);
-        confirmationTokenRepository.delete(confirmationToken);
+        //ConfirmationToken confirmationToken = confirmationTokenRepository.findByUserId(id);
         userRepository.delete(user);
         return "redirect:/adminpanel";
     }

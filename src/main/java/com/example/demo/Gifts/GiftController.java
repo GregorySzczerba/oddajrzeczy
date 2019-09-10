@@ -49,6 +49,7 @@ public class GiftController {
         Foundation foundation = foundationService.findById(foundationId);
         gifts.setFoundation(foundation);
         gifts.setUser(userService.findUserById(userId));
+        System.out.println(gifts);
         giftsRepository.save(gifts);
         return "redirect:userpanel";
     }

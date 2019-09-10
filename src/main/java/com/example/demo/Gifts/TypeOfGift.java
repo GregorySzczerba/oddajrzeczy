@@ -12,7 +12,6 @@ public class TypeOfGift {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
     public Long getId() {
         return id;
     }
@@ -31,9 +30,6 @@ public class TypeOfGift {
 
     @Override
     public String toString() {
-        return "TypeOfGift{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

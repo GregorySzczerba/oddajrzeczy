@@ -206,7 +206,6 @@
                                 <td th:text="${gift.zipCode}"/>
                                 <td th:text="${gift.bagsNumber}"/>
                                 <td th:text="${gift.foundation?.name}"/>
-                                <td th:text="${gift.foundation?.name}"/>
                                 <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${gift.id} + '\');'"
                                        class="btn btn-danger">Skasuj</a></td>
                                 <td><a th:href="@{'/editgift/' + ${gift.id}}" class="btn btn-warning">Edytuj</a></td>
