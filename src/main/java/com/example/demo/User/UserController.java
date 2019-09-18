@@ -8,6 +8,7 @@ import com.example.demo.foundation.FoundationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.mail.MailException;
@@ -80,8 +81,8 @@ public class UserController {
         Pageable pageableUsers = new PageRequest(0, 5);
 
 
-        List<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
-        List<User> users = userService.selectUsers(user.getId(), 3, pageableUsers );
+        Page<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
+        Page<User> users = userService.selectUsers(user.getId(), 3, pageableUsers );
         List<Foundation> foundations = foundationService.selectFoundations();
 
         modelAndView.addObject("admins", admins);
@@ -230,18 +231,23 @@ public class UserController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Pageable pageableAdmins = new PageRequest(0, 5);
         User user = userService.findUserByEmail(auth.getName());
-        List<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
+        Page<User> admins = userService.selectAdmins(user.getId(), 1, pageableAdmins);
         model.addAttribute("admins", admins);
         return "admins";
     }
 
-    @GetMapping("/users")
-    public String users(Model model) {
+    @GetMapping("/users/{page}")
+    public String users(@PathVariable("page") int page, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Pageable pageableAdmins = new PageRequest(0, 5);
+        int size = 5;
         User user = userService.findUserByEmail(auth.getName());
-        List<User> users = userService.selectUsers(user.getId(), 3, pageableAdmins);
-        model.addAttribute("users", users);
+        Page<User> users = userService.selectUsers(user.getId(), 3, new PageRequest(page - 1, size));
+        int totalPages = users.getTotalPages();
+        int currentPage = users.getNumber();
+        List<User> userList = users.getContent();
+        model.addAttribute("users", userList);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", currentPage + 1);
         return "users";
     }
 

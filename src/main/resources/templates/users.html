@@ -225,6 +225,28 @@
                         </table>
                     </div>
                 </div>
+                <nav aria-label="...">
+                    <ul class="pagination">
+
+                        <th:block th:if="${currentPage} > 1" >
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{ '/users/' + ${currentPage - 1} }">Poprzednia</a>
+                        </li>
+                        <li class="page-item"><a class="page-link" th:href="@{ '/users/' + ${currentPage - 1} }"><td th:text="${currentPage - 1}"/></a></li>
+                        </th:block>
+                        <li class="page-item active">
+                   <span class="page-link">
+        <td th:text="${currentPage}"/>
+        <span class="sr-only">(current)</span>
+      </span></li>
+                        <th:block th:if="${totalPages > currentPage}">
+                        <li class="page-item"><a class="page-link" th:href="@{ '/users/' + ${currentPage + 1} }"><td th:text="${currentPage + 1}"/></a></li>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{ '/users/' + ${currentPage + 1} }">Następna</a>
+                        </li>
+                        </th:block>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

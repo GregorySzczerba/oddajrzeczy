@@ -3,13 +3,13 @@ package com.example.demo.User;
 import com.example.demo.role.Role;
 import com.example.demo.role.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 
 @Service("userService")
 public class UserService {
@@ -51,18 +51,13 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> selectAdmins(int id, int role_id, Pageable pageable) {
-        List<User> admins = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
+    public Page<User> selectAdmins(int id, int role_id, Pageable pageable) {
+        Page<User> admins = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
         return admins;
     }
 
-    public List<User> selectUsers(int id, int role_id, Pageable pageable) {
-        List<User> users = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
+    public Page<User> selectUsers(int id, int role_id, Pageable pageable) {
+        Page<User> users = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
         return users;
     }
-
-    public void deleteUser(int id){
-        userRepository.deleteById(id);
-    }
-
 }
