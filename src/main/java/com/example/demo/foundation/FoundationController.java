@@ -72,6 +72,6 @@ public class FoundationController {
     public String deletefoundation(@PathVariable Long id) {
         Foundation foundation = foundationRepository.getById(id);
         foundationRepository.delete(foundation);
-        return "redirect:/adminpanel";
+        return "redirect:/foundations";
     }
 }

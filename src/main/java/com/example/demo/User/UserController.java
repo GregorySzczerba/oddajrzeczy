@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.mail.MailException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Controller
@@ -46,6 +48,7 @@ public class UserController {
 
     @Autowired
     private GiftsService giftsService;
+
 
     private Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -207,7 +210,7 @@ public class UserController {
     public String edituser(User user, BindingResult bindingResult) {
         user.setPassword(BCrypt.hashpw(user.getPassword(), BCrypt.gensalt()));
         userRepository.save(user);
-        return "redirect:/adminpanel";
+        return "redirect:/users/1";
     }
 
     @GetMapping("/editLoggedUser")
@@ -237,22 +240,26 @@ public class UserController {
     }
 
     @GetMapping("/users/{page}")
-    public String users(@PathVariable("page") int page, Model model) {
+    public String users(@PathVariable("page") int page, Model model, @RequestParam Optional<String> sortBy) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        int size = 5;
         User user = userService.findUserByEmail(auth.getName());
-        Page<User> users = userService.selectUsers(user.getId(), 3, new PageRequest(page - 1, size));
+        Page<User> users = userService.selectUsers(user.getId(), 3, new PageRequest(page - 1, 5, Sort.Direction.ASC, sortBy.orElse("id")));
         int totalPages = users.getTotalPages();
         int currentPage = users.getNumber();
         List<User> userList = users.getContent();
         model.addAttribute("users", userList);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", currentPage + 1);
+        if (sortBy.isPresent()) {
+            model.addAttribute("sortBy", sortBy.get());
+        } else {
+            model.addAttribute("sortBy", "id");
+        }
         return "users";
     }
 
-    @GetMapping("/blockuser/{id}")
-    public String blockuser(@PathVariable  int id) {
+    @GetMapping("/blockuser/{id}/{currentPage}")
+    public String blockuser(@PathVariable  int id, @PathVariable("currentPage") int currentPage) {
         User user = userRepository.findById(id);
         if (user.getActive() == 0) {
             user.setActive(1);
@@ -260,7 +267,7 @@ public class UserController {
             user.setActive(0);
         }
         userRepository.save(user);
-        return "redirect:/users";
+        return "redirect:/users/" + currentPage;
     }
 }
 

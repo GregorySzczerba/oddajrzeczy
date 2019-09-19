@@ -32,7 +32,7 @@
 
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-    <a class="navbar-brand mr-1" href="index.html">Start Bootstrap</a>
+    <a class="navbar-brand mr-1" href="index.html">Oddaj rzeczy</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
         <i class="fas fa-bars"></i>
@@ -41,7 +41,7 @@
     <!-- Navbar Search -->
     <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
+            <input type="text" class="form-control" placeholder="Wyszukaj" aria-label="Search"
                    aria-describedby="basic-addon2"/>
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
@@ -100,7 +100,7 @@
         <li class="nav-item active">
             <a class="nav-link" href="index.html">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span>
+                <span>Oddaj rzeczy</span>
             </a>
         </li>
         <li class="nav-item dropdown">
@@ -111,7 +111,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <a class="dropdown-item" th:href="@{'/admins'}">administratorami</a>
-                <a class="dropdown-item" th:href="@{'/users'}">użytkownikami</a>
+                <a class="dropdown-item" th:href="@{'/users/1'}">użytkownikami</a>
                 <a class="dropdown-item" th:href="@{'/foundations'}">fundacjami</a>
                 <a class="dropdown-item" th:href="@{'/gifts'}">darami</a>
                 <a class="dropdown-item" th:href="@{'/categories'}">kategoriami</a>
@@ -145,111 +145,93 @@
             <!-- Icon Cards-->
             <div class="row">
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-warning o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-list"></i>
-                            </div>
-                            <a th:href="@{'/addfoundation'}">Dodaj fundację</a>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-lg"><a th:href="@{'/addfoundation'}">Dodaj fundację</a></button>
                 </div>
+
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-warning o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-list"></i>
-                            </div>
-                            <div class="mr-5"><a th:href="@{'/addadmin'}">Dodaj administratora</a></div>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-lg"><a th:href="@{'/addadmin'}">Dodaj administratora</a></button>
                 </div>
+
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-success o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                            </div>
-                            <div class="mr-5"><a th:href="@{'/addcategory/'}">Dodaj kategorię</a>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-lg"><a th:href="@{'/addcategory'}">Dodaj kategorię</a></button>
                 </div>
+
                 <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-danger o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-life-ring"></i>
-                            </div>
-                            <div class="mr-5"><a th:href="@{'/form'}">Dodaj dar</a>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="button" class="btn btn-outline-primary btn-lg"><a th:href="@{'/form'}">Dodaj dar</a></button>
+                </div>
+
+        </div>
+
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+                Lista użytkowników
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="dataTableUsers" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th><a th:href="@{'/users/1?sortBy=id'}">Id</a></th>
+                            <th><a th:href="@{'/users/1?sortBy=name'}">Imię</a></th>
+                            <th><a th:href="@{'/users/1?sortBy=lastName'}">Nazwisko</a></th>
+                            <th><a th:href="@{'/users/1?sortBy=email'}">email</a></th>
+                            <th>Usuwanie</th>
+                            <th>Edycja</th>
+                            <th>Blokuj</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user: ${users}">
+                            <td th:text="${user.id}"/>
+                            <td th:text="${user.name}"/>
+                            <td th:text="${user.lastName}"/>
+                            <td th:text="${user.email}"/>
+                            <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${user.id} + '\');'"
+                                   class="btn btn-danger">Skasuj</a></td>
+                            <td><a th:href="@{'/edituser/' + ${user.id}}" class="btn btn-warning">Edytuj</a></td>
+                            <td th:if="${user.active}"><a th:href="@{'/blockuser/' + ${user.id} + '/' + ${currentPage}}"
+                                                          class="btn btn-warning">zablokuj</a></td>
+                            <td th:unless="${user.active}"><a
+                                    th:href="@{'/blockuser/' + ${user.id} + '/' + ${currentPage} }"
+                                    class="btn btn-warning">odblokuj</a></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <nav aria-label="...">
+                <ul class="pagination">
 
-            <!-- DataTables Example -->
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fas fa-table"></i>
-                    Lista użytkowników
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Imię</th>
-                                <th>Nazwisko</th>
-                                <th>email</th>
-                                <th>Usuwanie</th>
-                                <th>Edycja</th>
-                                <th>Blokuj</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="user: ${users}">
-                                <td th:text="${user.id}"/>
-                                <td th:text="${user.name}"/>
-                                <td th:text="${user.lastName}"/>
-                                <td th:text="${user.email}"/>
-                                <td><a href="#" th:onclick="'javascript:confirmDelete(\'' + ${user.id} + '\');'"
-                                       class="btn btn-danger">Skasuj</a></td>
-                                <td><a th:href="@{'/edituser/' + ${user.id}}" class="btn btn-warning">Edytuj</a></td>
-                                <td th:if="${user.active}"><a th:href="@{'/blockuser/' + ${user.id}}" class="btn btn-warning">zablokuj</a></td>
-                                <td th:unless="${user.active}"><a th:href="@{'/blockuser/' + ${user.id}}" class="btn btn-warning">odblokuj</a></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <nav aria-label="...">
-                    <ul class="pagination">
-
-                        <th:block th:if="${currentPage} > 1" >
+                    <th:block th:if="${currentPage} > 1">
                         <li class="page-item">
                             <a class="page-link" th:href="@{ '/users/' + ${currentPage - 1} }">Poprzednia</a>
                         </li>
-                        <li class="page-item"><a class="page-link" th:href="@{ '/users/' + ${currentPage - 1} }"><td th:text="${currentPage - 1}"/></a></li>
-                        </th:block>
-                        <li class="page-item active">
+                        <li class="page-item"><a class="page-link" th:href="@{ '/users/' + ${currentPage - 1}  + '?sortBy=' +
+                        ${sortBy} }">
+                            <td th:text="${currentPage - 1}"/>
+                        </a></li>
+                    </th:block>
+                    <li class="page-item active">
                    <span class="page-link">
         <td th:text="${currentPage}"/>
         <span class="sr-only">(current)</span>
       </span></li>
-                        <th:block th:if="${totalPages > currentPage}">
-                        <li class="page-item"><a class="page-link" th:href="@{ '/users/' + ${currentPage + 1} }"><td th:text="${currentPage + 1}"/></a></li>
+                    <th:block th:if="${totalPages > currentPage}">
+                        <li class="page-item"><a class="page-link" th:href="@{ '/users/' + ${currentPage + 1} + '?sortBy=' + ${sortBy}   }">
+                            <td th:text="${currentPage + 1}"/>
+                        </a></li>
                         <li class="page-item">
                             <a class="page-link" th:href="@{ '/users/' + ${currentPage + 1} }">Następna</a>
                         </li>
-                        </th:block>
-                    </ul>
-                </nav>
-            </div>
+                    </th:block>
+                </ul>
+            </nav>
         </div>
     </div>
+</div>
 </div>
 <!-- /.container-fluid -->
 
@@ -311,7 +293,6 @@
 <!-- Demo scripts for this page-->
 <script th:src="@{/css/js/demo/datatables-demo.js}"></script>
 <script th:src="@{/css/js/demo/chart-area-demo.js}"></script>
-
 </body>
 
 </html>

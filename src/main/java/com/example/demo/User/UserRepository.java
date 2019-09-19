@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     User findByEmail(String email);
-    Page<User> findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(int id, int role_id, Pageable pageable);
+    Page<User> findAllUsersByIdIsNotAndRolesId(int id, int role_id, Pageable pageable);
     User findById(int id);
 
 

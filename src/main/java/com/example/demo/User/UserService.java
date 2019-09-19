@@ -52,12 +52,12 @@ public class UserService {
     }
 
     public Page<User> selectAdmins(int id, int role_id, Pageable pageable) {
-        Page<User> admins = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
+        Page<User> admins = userRepository.findAllUsersByIdIsNotAndRolesId(id, role_id, pageable);
         return admins;
     }
 
     public Page<User> selectUsers(int id, int role_id, Pageable pageable) {
-        Page<User> users = userRepository.findAllUsersByIdIsNotAndRolesIdOrderByIdAsc(id, role_id, pageable);
+        Page<User> users = userRepository.findAllUsersByIdIsNotAndRolesId(id, role_id, pageable);
         return users;
     }
 }
